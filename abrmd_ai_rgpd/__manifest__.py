@@ -28,7 +28,6 @@ Compatible RGPD strict zone UE. Aucun call-home obligatoire. Compatible audit CN
     "depends": [
         "base",
         "mail",
-        "mail_activity",
     ],
     "data": [
         # Security first
