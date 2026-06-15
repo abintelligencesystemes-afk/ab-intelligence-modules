@@ -64,7 +64,7 @@ Pour qui ?
     "license": "OPL-1",
     "category": "Accounting",
     # Pricing 149 € : à valider par consult ChatGPT
-    "price": 29.99,
+    "price": 719.76,
     "currency": "EUR",
     "depends": [
         "base",

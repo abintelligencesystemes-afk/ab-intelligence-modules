@@ -100,7 +100,7 @@ client plus professionnelle.
     # - Prix catalogue cible : 69.00 € (volume × marge × crédibilité)
     # - Promo lancement 30 jours : 49.00 € (effet urgence)
     # - Passage 89.00 € possible une fois screenshots + vidéo démo en place
-    "price": 9.99,
+    "price": 239.76,
     "currency": "EUR",
     "depends": [
         "base",

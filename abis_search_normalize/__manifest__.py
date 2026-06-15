@@ -79,7 +79,7 @@ Caractéristiques techniques
     # Pricing validé par consultation ChatGPT 2026-06-13 :
     # - 69 € maximise volume / 99 € meilleur équilibre marge×volume / 149 € possible avec démo
     # - Recommandation : garder 99 € comme prix catalogue.
-    "price": 19.99,
+    "price": 479.76,
     "currency": "EUR",
     "depends": [
         "base",

@@ -73,9 +73,11 @@ Stack vidéo low-cost
     "author": "AB Intelligence — Anthony Boursier",
     "website": "https://rmd-store.com",
     "support": "contact@rmdsto.re",
-    "license": "LGPL-3",
+    "license": "OPL-1",
     "category": "Marketing/Social Marketing",
     "version": "19.0.0.2.0",
+    "price": 1176.00,
+    "currency": "EUR",
     "depends": [
         "base",
         "mail",

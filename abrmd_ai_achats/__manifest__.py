@@ -50,7 +50,7 @@ Site : https://abintelligence.fr
     "installable": True,
     "application": True,
     "auto_install": False,
-    "price": 29.0,
+    "price": 696.00,
     "currency": "EUR",
     "support": "support@abintelligence.fr",
 }

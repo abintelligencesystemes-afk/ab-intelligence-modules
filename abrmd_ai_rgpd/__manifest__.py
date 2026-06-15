@@ -21,8 +21,10 @@ Compatible RGPD strict zone UE. Aucun call-home obligatoire. Compatible audit CN
     "author": "AB Intelligence Systèmes",
     "maintainer": "Anthony Boursier",
     "website": "https://rmdstore.fr/ai-rgpd",
-    "license": "LGPL-3",
+    "license": "OPL-1",
     "category": "Productivity/Compliance",
+    "price": 696.00,
+    "currency": "EUR",
     "depends": [
         "base",
         "mail",
