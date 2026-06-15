@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Configuration par défaut. Anthony override via Settings → AI Achats. -->
+        <record id="ir_config_parameter_enabled" model="ir.config_parameter">
+            <field name="key">abrmd_ai_achats.enabled</field>
+            <field name="value">True</field>
+        </record>
+
+        <record id="ir_config_parameter_worker_url" model="ir.config_parameter">
+            <field name="key">abrmd_ai_achats.worker_url</field>
+            <field name="value">https://abi-control-plane.workers.dev/api/ocr/invoice</field>
+        </record>
+
+        <record id="ir_config_parameter_signature_threshold" model="ir.config_parameter">
+            <field name="key">abrmd_ai_achats.signature_threshold</field>
+            <field name="value">0.8</field>
+        </record>
+
+        <record id="ir_config_parameter_product_match_threshold" model="ir.config_parameter">
+            <field name="key">abrmd_ai_achats.product_match_threshold</field>
+            <field name="value">0.8</field>
+        </record>
+
+        <record id="ir_config_parameter_openai_model" model="ir.config_parameter">
+            <field name="key">abrmd_ai_achats.openai_model</field>
+            <field name="value">gpt-4o</field>
+        </record>
+
+        <record id="ir_config_parameter_http_timeout" model="ir.config_parameter">
+            <field name="key">abrmd_ai_achats.http_timeout_sec</field>
+            <field name="value">60</field>
+        </record>
+
+        <record id="ir_config_parameter_killed" model="ir.config_parameter">
+            <field name="key">abrmd_ai_achats.killed</field>
+            <field name="value">False</field>
+        </record>
+
+        <!-- Séquence pour scan.name -->
+        <record id="seq_abrmd_ai_achat_scan" model="ir.sequence">
+            <field name="name">Scan OCR AI Achats</field>
+            <field name="code">abrmd.ai.achat.scan</field>
+            <field name="prefix">AIACHAT/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

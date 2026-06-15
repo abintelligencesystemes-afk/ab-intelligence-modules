@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+      Pré-initialisation des signatures fournisseurs principaux RMD Store.
+      Ces signatures servent de point de départ : au 1er scan d'une facture
+      Ingram/Brossette/etc., le système reconnaît le fournisseur AVANT
+      d'appeler OpenAI → gain immédiat.
+
+      noupdate=1 → uniquement à l'install initiale, pas écrasé par update.
+
+      Si les partners n'existent pas encore (instance fraîche), Anthony peut
+      les créer via Contacts puis re-lancer une init via Settings → AI Achats.
+    -->
+    <data noupdate="1">
+
+        <!-- Fournisseur Ingram Micro (IT distribution) -->
+        <record id="partner_ingram_demo" model="res.partner">
+            <field name="name">Ingram Micro France</field>
+            <field name="company_type">company</field>
+            <field name="supplier_rank">1</field>
+            <field name="vat">FR42329257490</field>
+            <field name="country_id" ref="base.fr"/>
+        </record>
+        <record id="signature_ingram" model="abrmd.ai.supplier.signature">
+            <field name="partner_id" ref="partner_ingram_demo"/>
+            <field name="signature_keywords">Ingram,Micro,FR42329257490,Lieusaint,Distribution,IT</field>
+            <field name="vat_pattern">FR42329257490</field>
+            <field name="confidence">0.9</field>
+            <field name="occurrences">10</field>
+            <field name="supplier_text_extracted">INGRAM MICRO FRANCE — Distribution IT — VAT FR42329257490</field>
+        </record>
+
+        <!-- Fournisseur Brossette (BTP) -->
+        <record id="partner_brossette_demo" model="res.partner">
+            <field name="name">Brossette</field>
+            <field name="company_type">company</field>
+            <field name="supplier_rank">1</field>
+            <field name="vat">FR82542052485</field>
+            <field name="country_id" ref="base.fr"/>
+        </record>
+        <record id="signature_brossette" model="abrmd.ai.supplier.signature">
+            <field name="partner_id" ref="partner_brossette_demo"/>
+            <field name="signature_keywords">Brossette,FR82542052485,BTP,Plomberie,Sanitaire,Chauffage</field>
+            <field name="vat_pattern">FR82542052485</field>
+            <field name="confidence">0.85</field>
+            <field name="occurrences">5</field>
+        </record>
+
+        <!-- Fournisseur Cedeo (BTP) -->
+        <record id="partner_cedeo_demo" model="res.partner">
+            <field name="name">Cedeo</field>
+            <field name="company_type">company</field>
+            <field name="supplier_rank">1</field>
+            <field name="country_id" ref="base.fr"/>
+        </record>
+        <record id="signature_cedeo" model="abrmd.ai.supplier.signature">
+            <field name="partner_id" ref="partner_cedeo_demo"/>
+            <field name="signature_keywords">Cedeo,Saint-Gobain,Distribution,Plomberie,Sanitaire</field>
+            <field name="confidence">0.8</field>
+            <field name="occurrences">3</field>
+        </record>
+
+        <!-- Fournisseur Frans Bonhomme (BTP) -->
+        <record id="partner_frans_bonhomme_demo" model="res.partner">
+            <field name="name">Frans Bonhomme</field>
+            <field name="company_type">company</field>
+            <field name="supplier_rank">1</field>
+            <field name="country_id" ref="base.fr"/>
+        </record>
+        <record id="signature_frans_bonhomme" model="abrmd.ai.supplier.signature">
+            <field name="partner_id" ref="partner_frans_bonhomme_demo"/>
+            <field name="signature_keywords">Frans,Bonhomme,TP,Travaux,Publics,Réseaux</field>
+            <field name="confidence">0.8</field>
+            <field name="occurrences">3</field>
+        </record>
+
+        <!-- Fournisseur SGDB / Point.P (BTP) -->
+        <record id="partner_sgdb_demo" model="res.partner">
+            <field name="name">SGDB - Point.P</field>
+            <field name="company_type">company</field>
+            <field name="supplier_rank">1</field>
+            <field name="country_id" ref="base.fr"/>
+        </record>
+        <record id="signature_sgdb" model="abrmd.ai.supplier.signature">
+            <field name="partner_id" ref="partner_sgdb_demo"/>
+            <field name="signature_keywords">SGDB,Point.P,Saint-Gobain,Matériaux,Construction</field>
+            <field name="confidence">0.8</field>
+            <field name="occurrences">3</field>
+        </record>
+
+    </data>
+</odoo>

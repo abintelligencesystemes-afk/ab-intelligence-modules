@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Entrées par défaut du Registre Art.30 — à adapter par l'admin. -->
+        <record id="registre_default_crm" model="abrmd.rgpd.registre">
+            <field name="name">Gestion commerciale CRM</field>
+            <field name="code">TRT-CRM</field>
+            <field name="sequence">10</field>
+            <field name="controller_name">Société utilisatrice</field>
+            <field name="controller_email">contact@company.example</field>
+            <field name="purpose">Gestion des prospects et clients : suivi des opportunités, devis, ventes, communications commerciales et support.</field>
+            <field name="legal_basis">contract</field>
+            <field name="data_subjects">Prospects, clients, contacts professionnels</field>
+            <field name="data_categories">Identité, contact (email, téléphone), historique des interactions commerciales, adresse de facturation.</field>
+            <field name="retention_days">1095</field>
+            <field name="retention_legal_ref">3 ans après dernière interaction commerciale (recommandation CNIL)</field>
+            <field name="security_measures">Authentification utilisateur Odoo, accès par rôle, sauvegardes chiffrées, journaux d'accès activés.</field>
+        </record>
+
+        <record id="registre_default_compta" model="abrmd.rgpd.registre">
+            <field name="name">Comptabilité et facturation</field>
+            <field name="code">TRT-COMPTA</field>
+            <field name="sequence">20</field>
+            <field name="controller_name">Société utilisatrice</field>
+            <field name="controller_email">contact@company.example</field>
+            <field name="purpose">Émission de factures, suivi des paiements, écritures comptables, déclarations fiscales et sociales.</field>
+            <field name="legal_basis">legal_obligation</field>
+            <field name="data_subjects">Clients, fournisseurs, salariés</field>
+            <field name="data_categories">Identité, coordonnées bancaires, NIF/SIRET, montants facturés, écritures comptables.</field>
+            <field name="retention_days">3650</field>
+            <field name="retention_legal_ref">10 ans (Code de commerce L123-22, livres et pièces comptables)</field>
+            <field name="security_measures">Chiffrement au repos, accès limité aux profils comptables.</field>
+        </record>
+
+        <record id="registre_default_rh" model="abrmd.rgpd.registre">
+            <field name="name">Gestion du personnel et paie</field>
+            <field name="code">TRT-RH</field>
+            <field name="sequence">30</field>
+            <field name="controller_name">Société utilisatrice</field>
+            <field name="controller_email">rh@company.example</field>
+            <field name="purpose">Gestion administrative des salariés, paie, contrats, formation, déclarations sociales.</field>
+            <field name="legal_basis">contract</field>
+            <field name="data_subjects">Salariés, alternants, stagiaires</field>
+            <field name="data_categories">Identité, NIR/N° SS, coordonnées bancaires, salaire, évaluations, formations suivies.</field>
+            <field name="data_sensitive">False</field>
+            <field name="retention_days">1825</field>
+            <field name="retention_legal_ref">5 ans après départ (bulletin de paie 5 ans Code du travail L3243-4)</field>
+            <field name="security_measures">Accès limité au service RH, données chiffrées, journaux d'accès.</field>
+        </record>
+    </data>
+</odoo>

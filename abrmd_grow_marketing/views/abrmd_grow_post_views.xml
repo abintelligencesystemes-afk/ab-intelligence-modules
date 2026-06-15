@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ===================== LIST ===================== -->
+    <record id="view_abrmd_grow_post_list" model="ir.ui.view">
+        <field name="name">abrmd.grow.post.list</field>
+        <field name="model">abrmd.grow.post</field>
+        <field name="arch" type="xml">
+            <list string="Posts Grow Marketing" multi_edit="1" sample="1">
+                <field name="scheduled_date"/>
+                <field name="title"/>
+                <field name="canal"/>
+                <field name="state"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'review'"
+                       decoration-primary="state == 'scheduled'"
+                       decoration-success="state == 'published'"
+                       decoration-muted="state == 'cancelled'"
+                       widget="badge"/>
+                <field name="char_count"/>
+                <field name="char_limit_canal" optional="hide"/>
+                <field name="over_limit" optional="show" widget="boolean_toggle"/>
+                <field name="published" widget="boolean_toggle"/>
+                <field name="published_date" optional="hide"/>
+                <field name="idea_id" optional="hide"/>
+                <field name="product_id" optional="show"/>
+                <field name="task_id" optional="hide"/>
+                <field name="generated_by_ai" optional="hide"/>
+                <field name="ai_objectif" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ===================== FORM ===================== -->
+    <record id="view_abrmd_grow_post_form" model="ir.ui.view">
+        <field name="name">abrmd.grow.post.form</field>
+        <field name="model">abrmd.grow.post</field>
+        <field name="arch" type="xml">
+            <form string="Post Grow Marketing">
+                <header>
+                    <button name="action_send_to_review" type="object"
+                            string="À valider" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_schedule" type="object"
+                            string="Programmer" class="oe_highlight"
+                            invisible="state not in ('draft', 'review')"/>
+                    <button name="action_mark_published" type="object"
+                            string="Marquer publié" class="oe_highlight"
+                            invisible="state == 'published' or published"/>
+                    <button name="action_regenerate_draft" type="object"
+                            string="Régénérer brouillon"
+                            invisible="state == 'published'"/>
+                    <button name="action_back_to_draft" type="object"
+                            string="Retour brouillon"
+                            invisible="state in ('draft', 'published')"/>
+                    <button name="action_cancel" type="object"
+                            string="Annuler"
+                            invisible="state in ('published', 'cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,review,scheduled,published"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <widget name="web_ribbon" title="Publié"
+                            bg_color="text-bg-success"
+                            invisible="not published"/>
+                    <widget name="web_ribbon" title="Au-delà de la limite"
+                            bg_color="text-bg-warning"
+                            invisible="not over_limit"/>
+                    <div class="oe_title">
+                        <label for="title"/>
+                        <h1>
+                            <field name="title" placeholder="Titre interne du post…"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="canal"/>
+                            <field name="scheduled_date"/>
+                            <field name="ai_objectif"/>
+                            <field name="published"/>
+                            <field name="published_date" readonly="1"
+                                   invisible="not published"/>
+                            <field name="published_url"
+                                   placeholder="https://www.linkedin.com/feed/update/..."
+                                   invisible="not published"/>
+                        </group>
+                        <group>
+                            <field name="char_count"/>
+                            <field name="char_limit_canal"/>
+                            <field name="over_limit" widget="boolean_toggle" readonly="1"/>
+                            <field name="product_id" options="{'no_create': True}"/>
+                            <field name="task_id" options="{'no_create': True}"/>
+                            <field name="project_id" options="{'no_create': True}"/>
+                            <field name="partner_id" options="{'no_create': True}"/>
+                            <field name="idea_id" options="{'no_create': True}"/>
+                            <field name="color" widget="color_picker"/>
+                            <field name="generated_by_ai" readonly="1"/>
+                            <field name="ai_model" readonly="1" invisible="not generated_by_ai"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Contenu du post" name="content_page">
+                            <field name="content"
+                                   placeholder="Texte du post (sera publié tel quel)…"
+                                   widget="text"/>
+                        </page>
+                        <page string="Visuel principal" name="visual_page">
+                            <field name="visual" widget="image" class="oe_avatar"/>
+                        </page>
+                        <page string="Médias rattachés" name="media_page">
+                            <field name="media_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Patterns appliqués" name="patterns_page">
+                            <field name="pattern_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="platform"/>
+                                    <field name="pattern_type"/>
+                                    <field name="composite_score"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Prompt IA (audit)" name="prompt_page"
+                              invisible="not ai_prompt">
+                            <field name="ai_prompt" readonly="1"/>
+                            <separator string="Réponse brute"/>
+                            <field name="ai_response_raw" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ===================== KANBAN ===================== -->
+    <record id="view_abrmd_grow_post_kanban" model="ir.ui.view">
+        <field name="name">abrmd.grow.post.kanban</field>
+        <field name="model">abrmd.grow.post</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" sample="1" class="o_kanban_small_column">
+                <field name="title"/>
+                <field name="canal"/>
+                <field name="scheduled_date"/>
+                <field name="state"/>
+                <field name="color"/>
+                <field name="published"/>
+                <field name="visual"/>
+                <field name="over_limit"/>
+                <field name="char_count"/>
+                <field name="char_limit_canal"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_image_fill_left o_kanban_image_full"
+                                 t-if="record.visual.raw_value">
+                                <img t-att-src="kanban_image('abrmd.grow.post', 'visual', record.id.raw_value)"
+                                     alt="Visuel"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="title"/>
+                                </strong>
+                                <div>
+                                    <span class="badge text-bg-info">
+                                        <field name="canal"/>
+                                    </span>
+                                    <field name="scheduled_date" widget="date"/>
+                                </div>
+                                <div>
+                                    <span t-attf-class="badge #{record.over_limit.raw_value ? 'text-bg-warning' : 'text-bg-light'}">
+                                        <field name="char_count"/> / <field name="char_limit_canal"/>
+                                    </span>
+                                </div>
+                                <div t-if="record.published.raw_value">
+                                    <span class="badge text-bg-success">Publié</span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ===================== CALENDAR ===================== -->
+    <record id="view_abrmd_grow_post_calendar" model="ir.ui.view">
+        <field name="name">abrmd.grow.post.calendar</field>
+        <field name="model">abrmd.grow.post</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendrier éditorial"
+                      date_start="scheduled_date"
+                      mode="month"
+                      color="canal"
+                      quick_create="0">
+                <field name="title"/>
+                <field name="canal"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- ===================== SEARCH ===================== -->
+    <record id="view_abrmd_grow_post_search" model="ir.ui.view">
+        <field name="name">abrmd.grow.post.search</field>
+        <field name="model">abrmd.grow.post</field>
+        <field name="arch" type="xml">
+            <search string="Posts Grow">
+                <field name="title"/>
+                <field name="content"/>
+                <field name="product_id"/>
+                <field name="task_id"/>
+                <field name="idea_id"/>
+                <field name="pattern_ids"/>
+                <separator/>
+                <filter string="Brouillons" name="filter_draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="À valider" name="filter_review"
+                        domain="[('state', '=', 'review')]"/>
+                <filter string="Programmés" name="filter_scheduled"
+                        domain="[('state', '=', 'scheduled')]"/>
+                <filter string="Publiés" name="filter_published"
+                        domain="[('published', '=', True)]"/>
+                <filter string="Générés IA" name="filter_ai"
+                        domain="[('generated_by_ai', '=', True)]"/>
+                <filter string="Au-delà limite canal" name="filter_overlimit"
+                        domain="[('over_limit', '=', True)]"/>
+                <separator/>
+                <filter string="Du jour" name="filter_today"
+                        domain="[('scheduled_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="Canal" name="group_canal" context="{'group_by': 'canal'}"/>
+                    <filter string="État" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'scheduled_date'}"/>
+                    <filter string="Objectif" name="group_objectif" context="{'group_by': 'ai_objectif'}"/>
+                    <filter string="Idée d'origine" name="group_idea" context="{'group_by': 'idea_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ===================== ACTION ===================== -->
+    <record id="action_abrmd_grow_post" model="ir.actions.act_window">
+        <field name="name">Posts Grow Marketing</field>
+        <field name="res_model">abrmd.grow.post</field>
+        <field name="view_mode">kanban,list,form,calendar</field>
+        <field name="search_view_id" ref="view_abrmd_grow_post_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Aucun post Grow Marketing pour l'instant.
+            </p>
+            <p>
+                Génère un post via le bouton "Anthony Growth Agent" sur un produit
+                ou une tâche projet, depuis une idée, ou crée-le manuellement.
+            </p>
+        </field>
+    </record>
+
+    <!-- ===================== MENU RACINE ===================== -->
+    <menuitem id="menu_abrmd_grow_root"
+              name="Grow Marketing"
+              sequence="105"
+              web_icon="abrmd_grow_marketing,static/description/icon.png"/>
+
+    <menuitem id="menu_abrmd_grow_posts"
+              name="Posts"
+              parent="menu_abrmd_grow_root"
+              action="action_abrmd_grow_post"
+              sequence="20"/>
+
+    <menuitem id="menu_abrmd_grow_calendar"
+              name="Calendrier éditorial"
+              parent="menu_abrmd_grow_root"
+              action="action_abrmd_grow_post"
+              sequence="30"/>
+
+    <menuitem id="menu_abrmd_grow_config_root"
+              name="Configuration"
+              parent="menu_abrmd_grow_root"
+              sequence="90"
+              groups="base.group_system"/>
+
+</odoo>

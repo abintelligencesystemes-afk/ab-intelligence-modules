@@ -1,0 +1,54 @@
+/* abrmd_grow_marketing — Styles widget preview */
+.o_abrmd_grow_preview {
+    display: flex;
+    flex-direction: column;
+    max-width: 720px;
+    margin: 16px auto;
+    padding: 16px;
+    background: #fafafa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+
+    &__header {
+        font-weight: 600;
+        font-size: 1.1em;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 12px;
+    }
+
+    &__controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 12px;
+
+        label { font-weight: 600; }
+
+        select {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #cccccc;
+        }
+    }
+
+    &__editor textarea {
+        width: 100%;
+        min-height: 140px;
+        padding: 10px 12px;
+        border-radius: 6px;
+        border: 1px solid #cccccc;
+        font-family: inherit;
+        font-size: 0.95em;
+        resize: vertical;
+    }
+
+    &__counter {
+        margin-top: 8px;
+        font-size: 0.85em;
+        color: #666666;
+        text-align: right;
+
+        &--over { color: #c0392b; font-weight: 600; }
+    }
+}

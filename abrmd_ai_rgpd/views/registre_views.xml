@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_abrmd_rgpd_registre_list" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.registre.list</field>
+            <field name="model">abrmd.rgpd.registre</field>
+            <field name="arch" type="xml">
+                <list string="Registre Art.30" multi_edit="1">
+                    <field name="sequence" widget="handle"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="legal_basis"/>
+                    <field name="data_sensitive" widget="boolean_toggle"/>
+                    <field name="retention_days"/>
+                    <field name="consent_count" string="Consents"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_abrmd_rgpd_registre_form" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.registre.form</field>
+            <field name="model">abrmd.rgpd.registre</field>
+            <field name="arch" type="xml">
+                <form string="Traitement">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_consents" type="object" class="oe_stat_button" icon="fa-handshake-o">
+                                <field name="consent_count" widget="statinfo" string="Consentements"/>
+                            </button>
+                        </div>
+                        <widget name="web_ribbon" title="Archivé" bg_color="bg-danger" invisible="active"/>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1><field name="name" placeholder="Ex: Gestion des commandes"/></h1>
+                            <field name="code" placeholder="TRT-001"/>
+                        </div>
+                        <group>
+                            <group string="Responsable de traitement (Art.30.1.a)">
+                                <field name="controller_name"/>
+                                <field name="controller_email"/>
+                                <field name="controller_address"/>
+                            </group>
+                            <group string="Base légale (Art.6)">
+                                <field name="legal_basis"/>
+                                <field name="data_sensitive"/>
+                                <field name="data_minors"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Finalité et données">
+                                <group>
+                                    <field name="purpose" placeholder="Décris l'objectif du traitement..."/>
+                                    <field name="data_subjects"/>
+                                    <field name="data_categories"/>
+                                </group>
+                            </page>
+                            <page string="Destinataires et transferts">
+                                <group>
+                                    <field name="recipients"/>
+                                    <field name="recipients_third_country"/>
+                                    <field name="transfer_safeguards" invisible="not recipients_third_country"/>
+                                </group>
+                            </page>
+                            <page string="Conservation et sécurité">
+                                <group>
+                                    <field name="retention_days"/>
+                                    <field name="retention_legal_ref"/>
+                                    <field name="security_measures"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_abrmd_rgpd_registre" model="ir.actions.act_window">
+            <field name="name">Registre Art.30</field>
+            <field name="res_model">abrmd.rgpd.registre</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Crée la première entrée du registre Art.30.</p>
+                <p>Chaque traitement de données personnelles doit y figurer : finalité, base légale, catégories, conservation, sécurité.</p>
+            </field>
+        </record>
+    </data>
+</odoo>

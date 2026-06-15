@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_abrmd_ai_supplier_signature_list" model="ir.ui.view">
+        <field name="name">abrmd.ai.supplier.signature.list</field>
+        <field name="model">abrmd.ai.supplier.signature</field>
+        <field name="arch" type="xml">
+            <list string="Signatures fournisseurs"
+                  decoration-success="confidence > 0.85"
+                  decoration-warning="confidence between 0.5 and 0.85">
+                <field name="partner_id"/>
+                <field name="vat_pattern"/>
+                <field name="confidence" widget="progressbar"/>
+                <field name="occurrences"/>
+                <field name="last_seen_date"/>
+                <field name="is_active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_abrmd_ai_supplier_signature_form" model="ir.ui.view">
+        <field name="name">abrmd.ai.supplier.signature.form</field>
+        <field name="model">abrmd.ai.supplier.signature</field>
+        <field name="arch" type="xml">
+            <form string="Signature fournisseur">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="vat_pattern"/>
+                            <field name="siret_pattern"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="confidence" widget="progressbar"/>
+                            <field name="occurrences"/>
+                            <field name="last_seen_date"/>
+                        </group>
+                    </group>
+                    <separator string="Mots-clés signature (séparés par virgule)"/>
+                    <field name="signature_keywords" widget="text"/>
+                    <separator string="Texte OCR de référence"/>
+                    <field name="supplier_text_extracted" widget="text"/>
+                    <separator string="Notes"/>
+                    <field name="notes" widget="text"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_abrmd_ai_supplier_signature" model="ir.actions.act_window">
+        <field name="name">Signatures fournisseurs</field>
+        <field name="res_model">abrmd.ai.supplier.signature</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Aucune signature.</p>
+            <p>Le module pré-remplit 5 signatures (Ingram, Brossette, Cedeo, Frans Bonhomme, SGDB) à l'install.
+            Chaque clic sur « Corriger &amp; Apprendre » d'une facture enrichit ce référentiel.</p>
+        </field>
+    </record>
+</odoo>

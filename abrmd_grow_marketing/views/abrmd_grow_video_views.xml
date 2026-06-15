@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ===================== VIDEO LIST ===================== -->
+    <record id="view_abrmd_grow_video_list" model="ir.ui.view">
+        <field name="name">abrmd.grow.video.list</field>
+        <field name="model">abrmd.grow.video</field>
+        <field name="arch" type="xml">
+            <list string="Vidéos Grow" sample="1">
+                <field name="create_date" optional="show"/>
+                <field name="name"/>
+                <field name="post_id" optional="show"/>
+                <field name="format" widget="badge"/>
+                <field name="voice_id" optional="hide"/>
+                <field name="duration_s" optional="hide"/>
+                <field name="cost_estimate_eur" widget="monetary"
+                       options="{'currency_field': false}"/>
+                <field name="state"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'generating'"
+                       decoration-success="state == 'ready'"
+                       decoration-danger="state == 'failed'"
+                       widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_abrmd_grow_video_form" model="ir.ui.view">
+        <field name="name">abrmd.grow.video.form</field>
+        <field name="model">abrmd.grow.video</field>
+        <field name="arch" type="xml">
+            <form string="Vidéo Grow Marketing">
+                <header>
+                    <button name="action_start_pipeline" type="object"
+                            string="Démarrer la génération" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_process_now" type="object"
+                            string="Traiter maintenant (debug)"
+                            invisible="state not in ('generating', 'failed')"/>
+                    <button name="action_retry" type="object"
+                            string="Réessayer"
+                            invisible="state != 'failed'"/>
+                    <button name="action_attach_to_post" type="object"
+                            string="Attacher au post" class="oe_highlight"
+                            invisible="state != 'ready' or not post_id"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,generating,ready"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Échec"
+                            bg_color="text-bg-danger"
+                            invisible="state != 'failed'"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="post_id"/>
+                            <field name="format"/>
+                            <field name="voice_provider"/>
+                            <field name="voice_id"/>
+                            <field name="max_duration_s"/>
+                            <field name="burn_subtitles"/>
+                        </group>
+                        <group>
+                            <field name="duration_s" readonly="1"/>
+                            <field name="cost_estimate_eur" widget="monetary"/>
+                            <field name="started_at" readonly="1"/>
+                            <field name="finished_at" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Script" name="script_page">
+                            <field name="script"
+                                   placeholder="Texte qui sera lu en voix off et burné en sous-titres…"/>
+                        </page>
+                        <page string="Médias sources" name="media_page">
+                            <field name="media_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Voix off (MP3)" name="voiceover_page"
+                              invisible="not voiceover_file">
+                            <field name="voiceover_file" widget="binary"
+                                   filename="voiceover_filename" readonly="1"/>
+                            <field name="voiceover_filename" invisible="1"/>
+                        </page>
+                        <page string="Sous-titres (SRT)" name="srt_page"
+                              invisible="not subtitles_srt">
+                            <field name="subtitles_srt" readonly="1"/>
+                        </page>
+                        <page string="Sortie MP4" name="output_page"
+                              invisible="not output_file">
+                            <field name="output_file" widget="binary"
+                                   filename="output_filename" readonly="1"/>
+                            <field name="output_filename" invisible="1"/>
+                        </page>
+                        <page string="Erreur" name="error_page"
+                              invisible="state != 'failed'">
+                            <field name="error_message" readonly="1"/>
+                        </page>
+                        <page string="Log pipeline" name="log_page"
+                              invisible="not pipeline_log">
+                            <field name="pipeline_log" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_abrmd_grow_video_search" model="ir.ui.view">
+        <field name="name">abrmd.grow.video.search</field>
+        <field name="model">abrmd.grow.video</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="post_id"/>
+                <separator/>
+                <filter string="Brouillons" name="f_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="En génération" name="f_gen" domain="[('state', '=', 'generating')]"/>
+                <filter string="Prêtes" name="f_ready" domain="[('state', '=', 'ready')]"/>
+                <filter string="Échouées" name="f_failed" domain="[('state', '=', 'failed')]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="État" name="g_state" context="{'group_by': 'state'}"/>
+                    <filter string="Format" name="g_format" context="{'group_by': 'format'}"/>
+                    <filter string="Voix" name="g_voice" context="{'group_by': 'voice_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_abrmd_grow_video" model="ir.actions.act_window">
+        <field name="name">Vidéos générées</field>
+        <field name="res_model">abrmd.grow.video</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_abrmd_grow_video_search"/>
+    </record>
+
+    <!-- ===================== WIZARD ===================== -->
+    <record id="view_abrmd_grow_video_wizard_form" model="ir.ui.view">
+        <field name="name">abrmd.grow.video.wizard.form</field>
+        <field name="model">abrmd.grow.video.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Générer une vidéo MP4">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="post_id"/>
+                            <field name="format"/>
+                            <field name="voice_id"/>
+                            <field name="max_duration_s"/>
+                        </group>
+                        <group>
+                            <field name="burn_subtitles"/>
+                            <field name="add_intro"/>
+                            <field name="add_outro"/>
+                            <field name="start_immediately"/>
+                            <field name="cost_estimate_eur" widget="monetary"
+                                   options="{'currency_field': false}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="media_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="script"
+                               placeholder="Script qui sera lu en voix off…"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_create_video" type="object"
+                            string="Créer la vidéo et démarrer la génération"
+                            class="btn-primary"/>
+                    <button special="cancel" string="Annuler"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_abrmd_grow_video_wizard" model="ir.actions.act_window">
+        <field name="name">Générer une vidéo MP4</field>
+        <field name="res_model">abrmd.grow.video.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_abrmd_grow_videos"
+              name="Vidéos"
+              parent="menu_abrmd_grow_root"
+              action="action_abrmd_grow_video"
+              sequence="45"/>
+
+</odoo>

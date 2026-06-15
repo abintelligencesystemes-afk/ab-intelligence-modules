@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_abrmd_ai_scan_wizard_form" model="ir.ui.view">
+        <field name="name">abrmd.ai.scan.wizard.form</field>
+        <field name="model">abrmd.ai.scan.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Scanner une facture">
+                <group>
+                    <field name="scanned_file" filename="scanned_filename"/>
+                    <field name="scanned_filename"/>
+                    <field name="mime_type"/>
+                    <field name="auto_create_move"/>
+                </group>
+                <footer>
+                    <button name="action_scan" type="object"
+                            string="Lancer OCR" class="btn-primary"/>
+                    <button special="cancel" string="Annuler" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_abrmd_ai_scan_wizard" model="ir.actions.act_window">
+        <field name="name">Scanner une facture</field>
+        <field name="res_model">abrmd.ai.scan.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_abrmd_ai_scan_wizard"
+        name="Scanner une facture"
+        parent="menu_abrmd_ai_achats_root"
+        action="action_abrmd_ai_scan_wizard"
+        sequence="5"/>
+</odoo>

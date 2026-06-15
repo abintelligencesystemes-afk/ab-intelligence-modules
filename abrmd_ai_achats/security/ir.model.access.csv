@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_abrmd_ai_achat_scan_user,abrmd.ai.achat.scan user,model_abrmd_ai_achat_scan,base.group_user,1,1,1,0
+access_abrmd_ai_achat_scan_manager,abrmd.ai.achat.scan manager,model_abrmd_ai_achat_scan,account.group_account_manager,1,1,1,1
+access_abrmd_ai_invoice_cache_user,abrmd.ai.invoice.cache user,model_abrmd_ai_invoice_cache,base.group_user,1,1,1,0
+access_abrmd_ai_invoice_cache_manager,abrmd.ai.invoice.cache manager,model_abrmd_ai_invoice_cache,account.group_account_manager,1,1,1,1
+access_abrmd_ai_supplier_signature_user,abrmd.ai.supplier.signature user,model_abrmd_ai_supplier_signature,base.group_user,1,1,1,0
+access_abrmd_ai_supplier_signature_manager,abrmd.ai.supplier.signature manager,model_abrmd_ai_supplier_signature,account.group_account_manager,1,1,1,1
+access_abrmd_ai_product_match_user,abrmd.ai.product.match user,model_abrmd_ai_product_match,base.group_user,1,1,1,0
+access_abrmd_ai_product_match_manager,abrmd.ai.product.match manager,model_abrmd_ai_product_match,account.group_account_manager,1,1,1,1
+access_abrmd_ai_scan_wizard_user,abrmd.ai.scan.wizard user,model_abrmd_ai_scan_wizard,base.group_user,1,1,1,1

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="cron_abrmd_grow_check_due" model="ir.cron">
+            <field name="name">abrmd_grow_marketing : Rappel posts du jour</field>
+            <field name="model_id" ref="model_abrmd_grow_post"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_check_due()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="cron_abrmd_grow_propose_daily" model="ir.cron">
+            <field name="name">abrmd_grow_marketing : Proposer 3 idées chaque jour (07h UTC)</field>
+            <field name="model_id" ref="model_abrmd_grow_proposer"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_propose_daily_ideas()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(hours=1)).strftime('%Y-%m-%d 07:00:00')"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="cron_abrmd_grow_video_process" model="ir.cron">
+            <field name="name">abrmd_grow_marketing : Traiter les vidéos en attente</field>
+            <field name="model_id" ref="model_abrmd_grow_video"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_process_pending_videos()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="cron_abrmd_grow_telemetry_send" model="ir.cron">
+            <field name="name">abrmd_grow_marketing : Telemetry heartbeat</field>
+            <field name="model_id" ref="model_abrmd_grow_telemetry"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_send_telemetry()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="cron_abrmd_grow_check_update" model="ir.cron">
+            <field name="name">abrmd_grow_marketing : Check update + kill switch</field>
+            <field name="model_id" ref="model_abrmd_grow_telemetry"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_check_update()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

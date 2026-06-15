@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#714B67"/>
+      <stop offset="1" stop-color="#5d3b54"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="22" fill="url(#g)"/>
+  <!-- Shield icon -->
+  <path d="M 64 24 L 92 36 L 92 64 Q 92 92 64 104 Q 36 92 36 64 L 36 36 Z"
+        fill="white" opacity="0.95" stroke="white" stroke-width="2"/>
+  <!-- Inner checkmark in purple -->
+  <path d="M 48 64 L 60 76 L 84 52" stroke="#714B67" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Tiny RGPD text below -->
+  <text x="64" y="120" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="white" opacity="0.9">RGPD</text>
+</svg>

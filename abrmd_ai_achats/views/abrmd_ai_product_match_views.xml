@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_abrmd_ai_product_match_list" model="ir.ui.view">
+        <field name="name">abrmd.ai.product.match.list</field>
+        <field name="model">abrmd.ai.product.match</field>
+        <field name="arch" type="xml">
+            <list string="Matching produits"
+                  decoration-success="confidence > 0.85"
+                  decoration-warning="confidence between 0.5 and 0.85">
+                <field name="partner_id"/>
+                <field name="supplier_ref"/>
+                <field name="supplier_name"/>
+                <field name="product_id"/>
+                <field name="confidence" widget="progressbar"/>
+                <field name="occurrences"/>
+                <field name="unit_price_avg"/>
+                <field name="last_unit_price"/>
+                <field name="last_seen_date"/>
+                <field name="is_active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_abrmd_ai_product_match_form" model="ir.ui.view">
+        <field name="name">abrmd.ai.product.match.form</field>
+        <field name="model">abrmd.ai.product.match</field>
+        <field name="arch" type="xml">
+            <form string="Match produit">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="product_id"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="confidence" widget="progressbar"/>
+                            <field name="occurrences"/>
+                            <field name="last_seen_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Texte fournisseur (tel qu'extrait par OCR)">
+                            <field name="supplier_ref"/>
+                            <field name="supplier_name"/>
+                        </group>
+                        <group string="Prix">
+                            <field name="unit_price_avg"/>
+                            <field name="last_unit_price"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_abrmd_ai_product_match" model="ir.actions.act_window">
+        <field name="name">Matching produits</field>
+        <field name="res_model">abrmd.ai.product.match</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

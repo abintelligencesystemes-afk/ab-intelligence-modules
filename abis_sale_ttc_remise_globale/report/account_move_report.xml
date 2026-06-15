@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_abis_discount" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='total']" position="before">
+            <t t-if="o.abis_discount_applied and o.abis_discount_ttc_mode == 'amount'">
+                <p class="text-muted text-end">
+                    <em>Remise globale TTC :
+                        <span t-field="o.abis_discount_ttc_amount"
+                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                    </em>
+                </p>
+            </t>
+            <t t-if="o.abis_discount_applied and o.abis_discount_ttc_mode == 'percent'">
+                <p class="text-muted text-end">
+                    <em>Remise globale TTC :
+                        <span t-out="'%.2f' % (o.abis_discount_ttc_percent or 0.0)"/>%
+                    </em>
+                </p>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_abrmd_rgpd_access_log_list" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.access.log.list</field>
+            <field name="model">abrmd.rgpd.access.log</field>
+            <field name="arch" type="xml">
+                <list string="Logs d'accès" decoration-warning="sensitive">
+                    <field name="create_date"/>
+                    <field name="log_type"/>
+                    <field name="model_name"/>
+                    <field name="res_id"/>
+                    <field name="action_description"/>
+                    <field name="executed_by"/>
+                    <field name="sensitive" widget="boolean_toggle"/>
+                    <field name="legal_basis"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_abrmd_rgpd_access_log_form" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.access.log.form</field>
+            <field name="model">abrmd.rgpd.access.log</field>
+            <field name="arch" type="xml">
+                <form string="Log d'accès" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="create_date" string="Horodatage"/>
+                                <field name="log_type"/>
+                                <field name="model_id"/>
+                                <field name="res_id"/>
+                                <field name="subject_hash" groups="group_abrmd_rgpd_manager"/>
+                            </group>
+                            <group>
+                                <field name="executed_by"/>
+                                <field name="executed_for"/>
+                                <field name="legal_basis"/>
+                                <field name="sensitive"/>
+                                <field name="ip_address"/>
+                            </group>
+                        </group>
+                        <field name="action_description"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_abrmd_rgpd_access_log_search" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.access.log.search</field>
+            <field name="model">abrmd.rgpd.access.log</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="action_description"/>
+                    <field name="model_name"/>
+                    <field name="executed_by"/>
+                    <field name="subject_hash"/>
+                    <separator/>
+                    <filter name="sensitive" string="Données sensibles" domain="[('sensitive', '=', True)]"/>
+                    <filter name="today" string="Aujourd'hui" domain="[('create_date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter name="last7" string="7 derniers jours" domain="[('create_date', '&gt;=', (context_today() - relativedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                    <group string="Group by">
+                        <filter name="gb_type" string="Type" context="{'group_by': 'log_type'}"/>
+                        <filter name="gb_model" string="Modèle" context="{'group_by': 'model_name'}"/>
+                        <filter name="gb_user" string="Utilisateur" context="{'group_by': 'executed_by'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_abrmd_rgpd_access_log" model="ir.actions.act_window">
+            <field name="name">Logs d'accès</field>
+            <field name="res_model">abrmd.rgpd.access.log</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_abrmd_rgpd_access_log_search"/>
+            <field name="context">{'search_default_last7': 1}</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI RGPD — Conformité RGPD complète pour Odoo</title>
+</head>
+<body>
+<section style="font-family: -apple-system, sans-serif; color: #283A4F; max-width: 900px; margin: 0 auto; padding: 24px;">
+  <h2 style="color: #714B67;">AI RGPD — Conformité complète RGPD pour Odoo 19</h2>
+  <p>
+    <strong>6 piliers RGPD</strong> directement intégrés à ton Odoo : registre Article 30, consentements, droits des personnes, anonymisation, logs d'accès et dashboard DPO.
+    Module pur Odoo 19, <strong>licence LGPL-3 — gratuit</strong>. Conçu par AB Intelligence Systèmes pour les PME et indépendants soumis au RGPD.
+  </p>
+
+  <h3>Les 6 piliers</h3>
+  <ol>
+    <li><strong>Registre Art.30</strong> — modèle dédié avec finalité, base légale (6 bases), catégories de données, destinataires, transferts hors UE, conservation, sécurité. 3 entrées prêtes à l'emploi (CRM, Comptabilité, RH).</li>
+    <li><strong>Consentements</strong> — capture, retrait, expiration auto. Hash SHA-256 + sel par tenant. Workflow given → withdrawn → expired. Cron quotidien.</li>
+    <li><strong>Droits des personnes (Art.12-22)</strong> — workflow demande complet avec délais légaux calculés (1 mois + 2 mois prolongation). 7 types couverts : accès, rectification, effacement, limitation, portabilité, opposition, décision automatisée. Alerte auto à J-7.</li>
+    <li><strong>Anonymisation et pseudonymisation</strong> — Server Actions sur res.partner. Mode réversible (hash + sel) ou irréversible (Art.17). Helpers email, téléphone, IP.</li>
+    <li><strong>Logs d'accès</strong> — modèle dédié + API <code>log_access()</code> appelable depuis n'importe quel modèle. 10 types d'opérations tracés. Cron de purge auto.</li>
+    <li><strong>Dashboard DPO</strong> — 10 KPIs en temps réel. Alertes contextuelles (demandes en retard, échéances à 7 jours, contact DPO non configuré, registre vide).</li>
+  </ol>
+
+  <h3>Pourquoi ce module ?</h3>
+  <ul>
+    <li><strong>Indépendant</strong> — pas de SaaS, pas de call-home obligatoire, ton Odoo reste maître de ses données</li>
+    <li><strong>Préconfiguré</strong> — 3 traitements types prêts à l'emploi (CRM, Compta, RH) alignés CNIL + Code de commerce + Code du travail</li>
+    <li><strong>Démontrable</strong> — chaque action laisse un log horodaté, prêt à présenter en audit CNIL</li>
+    <li><strong>Gratuit</strong> — LGPL-3, sources publiques, contributions bienvenues</li>
+  </ul>
+
+  <h3>Compatibilité</h3>
+  <p>Odoo 19 Community + Enterprise · dépendances standards (<code>base</code>, <code>mail</code>, <code>mail_activity</code>) · 100% stdlib Python · 12 tests TransactionCase + 13 tests pure-python.</p>
+
+  <h3>Démarrage en 5 minutes</h3>
+  <ol>
+    <li>Installer "AI RGPD" depuis Apps</li>
+    <li>Aller dans Paramètres → AI RGPD → Renseigner DPO + sel d'anonymisation</li>
+    <li>Vérifier le Registre Art.30 (3 entrées par défaut)</li>
+    <li>Ouvrir le Dashboard DPO et vérifier que les alertes sont vertes</li>
+    <li>Activer base.automation pour tracer les accès aux modèles sensibles</li>
+  </ol>
+
+  <h3>Support</h3>
+  <p>
+    Maintenu par AB Intelligence Systèmes — Anthony Boursier.<br>
+    Contact : <a href="mailto:contact@rmdsto.re">contact@rmdsto.re</a> · Web : <a href="https://rmdstore.fr/ai-rgpd">rmdstore.fr/ai-rgpd</a><br>
+    Issues / contributions : <a href="https://github.com/abintelligencesystemes-afk/ab-intelligence-modules">github.com/abintelligencesystemes-afk/ab-intelligence-modules</a> (branche 19.0)
+  </p>
+</section>
+</body>
+</html>

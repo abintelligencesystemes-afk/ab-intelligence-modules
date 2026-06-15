@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <title>AB Intelligence — Grow Marketing</title>
+</head>
+<body>
+    <section style="font-family: Inter, -apple-system, sans-serif; max-width: 980px; margin: auto; padding: 24px; color: #222;">
+        <header style="background: linear-gradient(135deg,#0f1432,#3858d8); color: #fff; padding: 32px 28px; border-radius: 12px; margin-bottom: 24px;">
+            <h1 style="margin: 0 0 8px; font-size: 32px;">AB Intelligence — Grow Marketing</h1>
+            <p style="margin: 0; opacity: 0.9; font-size: 18px;">
+                Pilotage éditorial multi-canal + vidéo IA low-cost.
+            </p>
+        </header>
+
+        <h2>Workflow complet idée → brouillon → validation → planning → publication</h2>
+        <p>
+            Génère, valide, programme et publie tes posts sur LinkedIn, Instagram, Facebook,
+            X / Twitter, YouTube, Threads et TikTok directement depuis Odoo. Alimenté par
+            <strong>Anthony Growth Agent</strong> (OpenAI GPT-4o-mini par défaut).
+        </p>
+
+        <h2>Génération vidéo MP4 intégrée — low-cost</h2>
+        <p>
+            Module unique sur le marché Odoo : produire une vidéo verticale 9:16 prête
+            pour TikTok / Reels / Shorts depuis un script, avec voix off, sous-titres
+            burnés et montage automatique. Stack 100 % low-cost :
+        </p>
+        <ul>
+            <li><strong>OpenAI TTS</strong> (voix nova, alloy, echo, fable, onyx, shimmer)
+                — environ 0,014 € par 1000 caractères.</li>
+            <li><strong>OpenAI Whisper</strong> pour la transcription en SRT
+                — environ 0,0055 € par minute.</li>
+            <li><strong>FFmpeg</strong> en subprocess (gratuit, open-source).</li>
+        </ul>
+        <p>Coût visé : <strong>~0,05 € par vidéo</strong>. Toute la stack est échangeable
+        (ElevenLabs, Runway, Sora prévus en V0.3).</p>
+
+        <h2>Fonctionnalités V0.2</h2>
+        <ul>
+            <li><code>abrmd.grow.idea</code> — file d'idées avec workflow
+                proposed → approved → used / rejected.</li>
+            <li>Cron quotidien (07h UTC) qui propose 3 idées chaque matin
+                à partir des top patterns marketing et d'un produit / projet.</li>
+            <li><code>abrmd.grow.post</code> — limites de caractères par canal,
+                régénération de brouillon en 1 clic, tracking URL + date publication.</li>
+            <li><code>abrmd.grow.media</code> — bibliothèque images / vidéos
+                avec import iCloud Drive (self-hosted) ou upload manuel.</li>
+            <li><code>abrmd.grow.pattern</code> + <code>abrmd.grow.veille.video</code> —
+                patterns marketing avec score composite engagement × récence.</li>
+            <li>Vues complètes : kanban, list, form, calendar, gallery,
+                search avec filtres et group-by riches.</li>
+            <li>Bouton "Générer post Grow" sur produits et tâches projet.</li>
+            <li>Wizard de génération IA avec 3 propositions cliquables.</li>
+            <li>Wizard de génération vidéo MP4 avec preview coût en temps réel.</li>
+        </ul>
+
+        <h2>Modes de déploiement</h2>
+        <ul>
+            <li><strong>Module Python on-premise</strong> — tout natif (FFmpeg via
+                subprocess sur l'hôte Odoo). Idéal pour les PME qui auto-hébergent.</li>
+            <li><strong>Odoo SaaS / Online</strong> — module Python non installable
+                par Odoo (limitation plateforme). Mode hybride avec agent local
+                (script Python standalone qui appelle FFmpeg côté client et
+                upload le MP4 via <code>ir.attachment</code>). Documentation
+                complète dans le README.</li>
+        </ul>
+
+        <h2>Conformité &amp; sécurité</h2>
+        <ul>
+            <li>RGPD : aucune FK obligatoire vers res.users / res.partner.</li>
+            <li>Kill switch local + distant via <code>ir.config_parameter</code>.</li>
+            <li>Clés API stockées dans <code>ir.config_parameter</code> (jamais en clair).</li>
+            <li>Aucune publication automatique — l'humain valide toujours.</li>
+            <li>Telemetry RGPD-safe : UUID instance + compteurs anonymes uniquement,
+                jamais de contenu de post.</li>
+            <li>Tests pure-python (28+ verts) couvrant manifest, security, hooks,
+                anti-secret, pipeline vidéo, char limits, workflows.</li>
+        </ul>
+
+        <h2>Roadmap</h2>
+        <ul>
+            <li><strong>V0.2 (cette release)</strong> — pipeline complet idées →
+                brouillons IA → vidéos MP4 + cron quotidien.</li>
+            <li>V0.3 — Veille YouTube Data API live, Google Drive OAuth,
+                ElevenLabs (clone voix), Runway / Sora.</li>
+            <li>V0.4 — Publication semi-auto (Buffer / Hootsuite / API natives)
+                + analytics post-publication.</li>
+        </ul>
+    </section>
+</body>
+</html>

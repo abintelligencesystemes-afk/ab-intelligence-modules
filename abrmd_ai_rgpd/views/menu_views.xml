@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Menu racine -->
+        <menuitem id="menu_abrmd_rgpd_root"
+                  name="AI RGPD"
+                  web_icon="abrmd_ai_rgpd,static/description/icon.png"
+                  sequence="80"
+                  groups="group_abrmd_rgpd_dpo"/>
+
+        <!-- Dashboard -->
+        <record id="action_open_dashboard" model="ir.actions.server">
+            <field name="name">Dashboard DPO</field>
+            <field name="model_id" ref="model_abrmd_rgpd_dashboard"/>
+            <field name="state">code</field>
+            <field name="code">action = model.action_open_dashboard()</field>
+        </record>
+        <menuitem id="menu_abrmd_rgpd_dashboard"
+                  name="Dashboard DPO"
+                  parent="menu_abrmd_rgpd_root"
+                  action="action_open_dashboard"
+                  sequence="10"/>
+
+        <!-- Sub-menus -->
+        <menuitem id="menu_abrmd_rgpd_registre"
+                  name="Registre Art.30"
+                  parent="menu_abrmd_rgpd_root"
+                  action="action_abrmd_rgpd_registre"
+                  sequence="20"/>
+
+        <menuitem id="menu_abrmd_rgpd_consent"
+                  name="Consentements"
+                  parent="menu_abrmd_rgpd_root"
+                  action="action_abrmd_rgpd_consent"
+                  sequence="30"/>
+
+        <menuitem id="menu_abrmd_rgpd_request"
+                  name="Demandes (droits)"
+                  parent="menu_abrmd_rgpd_root"
+                  action="action_abrmd_rgpd_request"
+                  sequence="40"/>
+
+        <menuitem id="menu_abrmd_rgpd_access_log"
+                  name="Logs d'accès"
+                  parent="menu_abrmd_rgpd_root"
+                  action="action_abrmd_rgpd_access_log"
+                  sequence="50"/>
+
+        <menuitem id="menu_abrmd_rgpd_configuration"
+                  name="Configuration"
+                  parent="menu_abrmd_rgpd_root"
+                  sequence="90"
+                  groups="group_abrmd_rgpd_manager"/>
+
+        <menuitem id="menu_abrmd_rgpd_settings"
+                  name="Paramètres"
+                  parent="menu_abrmd_rgpd_configuration"
+                  action="base.action_open_settings"
+                  sequence="10"/>
+    </data>
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_res_config_settings_form_abrmd_rgpd" model="ir.ui.view">
+            <field name="name">res.config.settings.form.abrmd.rgpd</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <app data-string="AI RGPD" string="AI RGPD" name="abrmd_ai_rgpd" groups="group_abrmd_rgpd_manager">
+                        <block title="Contact DPO" name="dpo_contact">
+                            <setting id="dpo_settings" help="Coordonnées du Délégué à la Protection des Données (Art.37 RGPD).">
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="abrmd_rgpd_dpo_name" class="col-lg-3 o_light_label"/>
+                                        <field name="abrmd_rgpd_dpo_name"/>
+                                    </div>
+                                    <div class="row">
+                                        <label for="abrmd_rgpd_dpo_email" class="col-lg-3 o_light_label"/>
+                                        <field name="abrmd_rgpd_dpo_email"/>
+                                    </div>
+                                    <div class="row">
+                                        <label for="abrmd_rgpd_dpo_phone" class="col-lg-3 o_light_label"/>
+                                        <field name="abrmd_rgpd_dpo_phone"/>
+                                    </div>
+                                </div>
+                            </setting>
+                        </block>
+                        <block title="Délais et conservation" name="rgpd_retention">
+                            <setting id="retention_default" string="Durée de conservation par défaut" help="Appliquée aux nouvelles entrées du registre.">
+                                <field name="abrmd_rgpd_retention_default_days"/> jours
+                            </setting>
+                            <setting id="request_deadline" string="Délai légal demandes RGPD" help="1 mois (Art.12.3), prolongeable de 2 mois si complexité justifiée.">
+                                <field name="abrmd_rgpd_request_default_deadline_days"/> jours
+                            </setting>
+                        </block>
+                        <block title="Anonymisation" name="rgpd_anonymization">
+                            <setting id="salt" string="Sel d'anonymisation" help="Garde-le secret. Modifie-le uniquement si compromis (re-pseudonymise tout).">
+                                <field name="abrmd_rgpd_anonymization_salt" password="True"/>
+                            </setting>
+                        </block>
+                        <block title="Télémétrie (opt-in)" name="rgpd_telemetry">
+                            <setting id="telemetry" string="Télémétrie AB Intelligence" help="Envoi de compteurs anonymisés au control plane pour mesurer l'usage. Aucune donnée personnelle, opt-in.">
+                                <field name="abrmd_rgpd_telemetry_enabled"/>
+                            </setting>
+                        </block>
+                    </app>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

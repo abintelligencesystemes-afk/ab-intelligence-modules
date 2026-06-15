@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>AB Intelligence — AI Achats</title>
+</head>
+<body>
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">OCR Factures Fournisseurs nouvelle génération</h2>
+        <h3 class="oe_slogan" style="color: #6b7280;">Bypass IAP + Apprentissage progressif = -90 % de coût en 3 mois</h3>
+    </div>
+    <div class="oe_row">
+        <div class="oe_span6">
+            <h3>Pourquoi ce module&nbsp;?</h3>
+            <ul>
+                <li>Remplace <code>account_invoice_extract</code> (crédits IAP 0,10&nbsp;€/facture)</li>
+                <li>OCR via <strong>OpenAI Vision (gpt-4o)</strong> avec prompt JSON strict</li>
+                <li>Coût&nbsp;: 0,015&nbsp;€ par facture au démarrage, 0,002&nbsp;€ après 3 mois d'apprentissage</li>
+                <li>3 référentiels d'apprentissage&nbsp;: cache hash, signatures fournisseurs, matching produits</li>
+                <li>Bouton «&nbsp;Corriger &amp; Apprendre&nbsp;» qui enrichit le référentiel à chaque correction</li>
+                <li>Sécurisé&nbsp;: License JWT vérifiée à chaque appel, pas de stockage du PDF côté serveur</li>
+            </ul>
+        </div>
+        <div class="oe_span6">
+            <h3>Comment ça marche</h3>
+            <ol>
+                <li>Tu glisses un PDF/image dans la pièce jointe d'une facture fournisseur brouillon</li>
+                <li>Clic «&nbsp;OCR via OpenAI&nbsp;»&nbsp;→ extraction JSON + pré-remplissage du brouillon</li>
+                <li>Tu corriges si besoin, clic «&nbsp;Corriger &amp; Apprendre&nbsp;»</li>
+                <li>À la facture suivante du même fournisseur, le module reconnaît tout&nbsp;: produits, prix, format</li>
+                <li>Au fil du temps, l'IA n'est plus appelée que pour les nouveaux formats</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Économie cumulée vs IAP Odoo</h2>
+        <div class="oe_span12">
+            <table style="margin: 0 auto; font-size: 16px;">
+                <tr><th style="padding: 8px;">Période</th><th style="padding: 8px;">Coût AI Achats</th><th style="padding: 8px;">Coût IAP Odoo</th><th style="padding: 8px;">Économie</th></tr>
+                <tr><td style="padding: 8px;">Mois 1 (100 factures)</td><td style="padding: 8px;">1,50&nbsp;€</td><td style="padding: 8px;">10,00&nbsp;€</td><td style="padding: 8px; color: #16a34a;">-85&nbsp;%</td></tr>
+                <tr><td style="padding: 8px;">Mois 3 (100 factures)</td><td style="padding: 8px;">0,80&nbsp;€</td><td style="padding: 8px;">10,00&nbsp;€</td><td style="padding: 8px; color: #16a34a;">-92&nbsp;%</td></tr>
+                <tr><td style="padding: 8px;">Mois 6+ (100 factures)</td><td style="padding: 8px;">0,20&nbsp;€</td><td style="padding: 8px;">10,00&nbsp;€</td><td style="padding: 8px; color: #16a34a;">-98&nbsp;%</td></tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Architecture</h2>
+        <p style="text-align: center;">Odoo → Cloudflare Worker (license JWT) → OpenAI Vision → JSON structuré → pré-remplissage facture</p>
+        <p style="text-align: center; color: #6b7280;">Le module communique uniquement avec le Worker AB Intelligence. La clé OpenAI n'est jamais exposée à l'instance Odoo.</p>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Prérequis</h2>
+        <ul style="max-width: 600px; margin: 0 auto;">
+            <li>Odoo 19.0 (Community ou Enterprise)</li>
+            <li>License key valide (achetée via apps.odoo.com)</li>
+            <li>Accès Internet sortant vers <code>billing.abintelligencesystemes.com</code></li>
+            <li>Modules dépendances&nbsp;: <code>account</code>, <code>purchase</code>, <code>stock</code>, <code>mail</code></li>
+        </ul>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Support</h2>
+        <p style="text-align: center;">Email&nbsp;: <a href="mailto:support@abintelligence.fr">support@abintelligence.fr</a></p>
+        <p style="text-align: center;">Site&nbsp;: <a href="https://abintelligence.fr">abintelligence.fr</a></p>
+        <p style="text-align: center; color: #6b7280; font-size: 13px;">© AB Intelligence Systèmes — License OPL-1</p>
+    </div>
+</section>
+</body>
+</html>

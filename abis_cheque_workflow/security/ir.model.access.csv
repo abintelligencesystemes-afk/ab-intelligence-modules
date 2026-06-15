@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_abis_cheque_user,abis.cheque user,model_abis_cheque,group_abis_cheque_user,1,1,1,0
+access_abis_cheque_manager,abis.cheque manager,model_abis_cheque,group_abis_cheque_manager,1,1,1,1
+access_abis_cheque_remise_user,abis.cheque.remise user,model_abis_cheque_remise,group_abis_cheque_user,1,1,1,0
+access_abis_cheque_remise_manager,abis.cheque.remise manager,model_abis_cheque_remise,group_abis_cheque_manager,1,1,1,1
+access_abis_cheque_emit_wizard,abis.cheque.emit.wizard user,model_abis_cheque_emit_wizard,group_abis_cheque_user,1,1,1,0

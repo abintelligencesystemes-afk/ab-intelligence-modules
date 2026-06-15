@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="abrmd_grow_marketing.PostPreview">
+        <div class="o_abrmd_grow_preview">
+            <div class="o_abrmd_grow_preview__header">
+                <strong>Pré-visualisation post Grow (Anthony Growth Agent)</strong>
+            </div>
+            <div class="o_abrmd_grow_preview__controls">
+                <label>Canal :</label>
+                <select t-on-change="onCanalChange" t-att-value="state.canal">
+                    <option value="linkedin">LinkedIn (3000)</option>
+                    <option value="instagram">Instagram (2200)</option>
+                    <option value="facebook">Facebook (63206)</option>
+                    <option value="twitter">X / Twitter (280)</option>
+                    <option value="youtube">YouTube (5000)</option>
+                    <option value="threads">Threads (500)</option>
+                    <option value="tiktok">TikTok (2200)</option>
+                </select>
+            </div>
+            <div class="o_abrmd_grow_preview__editor">
+                <textarea t-on-input="onContentChange"
+                          t-att-value="state.content"
+                          placeholder="Colle ou édite ton contenu ici…"/>
+            </div>
+            <div class="o_abrmd_grow_preview__counter"
+                 t-att-class="state.over ? 'o_abrmd_grow_preview__counter--over' : ''">
+                <span t-out="state.content.length"/>
+                <span> / </span>
+                <span t-out="state.charLimit"/>
+                <span> caractères</span>
+                <span t-if="state.over"> — dépassement !</span>
+            </div>
+        </div>
+    </t>
+
+</templates>

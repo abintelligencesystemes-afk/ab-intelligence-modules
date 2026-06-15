@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_abis_cheque_root"
+              name="Chèques bancaires"
+              parent="account.menu_finance"
+              sequence="80"/>
+    <menuitem id="menu_abis_cheque"
+              name="Chèques"
+              parent="menu_abis_cheque_root"
+              action="action_abis_cheque"
+              sequence="10"/>
+    <menuitem id="menu_abis_cheque_remise"
+              name="Bordereaux de remise"
+              parent="menu_abis_cheque_root"
+              action="action_abis_cheque_remise"
+              sequence="20"/>
+</odoo>

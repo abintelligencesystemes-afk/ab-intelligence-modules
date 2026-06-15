@@ -1,0 +1,8 @@
+Odoo Enterprise Edition License v1.0 (OEEL-1)
+
+This module is distributed under the Odoo Enterprise Edition License v1.0.
+Voir https://www.odoo.com/documentation/19.0/legal/licenses.html pour le texte
+complet de la licence.
+
+Copyright © 2026 AB Intelligence — Anthony Boursier
+contact@rmdsto.re — https://abi.rmd-store.com

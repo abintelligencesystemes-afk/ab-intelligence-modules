@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_abis_colors" model="ir.ui.view">
+        <field name="name">res.company.form.abis.colors</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Couleurs corporate" name="abis_colors">
+                    <group>
+                        <field name="abis_colors_active"/>
+                    </group>
+                    <group string="Palette" invisible="not abis_colors_active">
+                        <field name="abis_color_primary" widget="color"/>
+                        <field name="abis_color_secondary" widget="color"/>
+                        <field name="abis_color_accent" widget="color"/>
+                    </group>
+                    <div class="alert alert-info" role="alert" invisible="not abis_colors_active">
+                        Le CSS dynamique est disponible sur
+                        <code>/abis_colors/<field name="id" readonly="1" invisible="1"/>.css</code>
+                        et chargé automatiquement par le portail.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

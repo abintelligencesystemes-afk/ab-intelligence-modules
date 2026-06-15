@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_abis_discount" model="ir.ui.view">
+        <field name="name">sale.order.form.abis.discount</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Remise globale TTC" name="abis_ttc_discount">
+                    <group>
+                        <group>
+                            <field name="abis_discount_ttc_mode"/>
+                            <field name="abis_discount_ttc_amount"
+                                   invisible="abis_discount_ttc_mode != 'amount'"
+                                   required="abis_discount_ttc_mode == 'amount'"/>
+                            <field name="abis_discount_ttc_percent"
+                                   invisible="abis_discount_ttc_mode != 'percent'"
+                                   required="abis_discount_ttc_mode == 'percent'"/>
+                            <field name="abis_discount_applied"/>
+                        </group>
+                        <group>
+                            <button name="action_apply_abis_discount_ttc"
+                                    string="Appliquer la remise globale TTC"
+                                    type="object"
+                                    class="btn-primary"
+                                    invisible="abis_discount_ttc_mode == 'none' or abis_discount_applied"/>
+                            <button name="action_cancel_abis_discount_ttc"
+                                    string="Annuler la remise"
+                                    type="object"
+                                    invisible="not abis_discount_applied"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

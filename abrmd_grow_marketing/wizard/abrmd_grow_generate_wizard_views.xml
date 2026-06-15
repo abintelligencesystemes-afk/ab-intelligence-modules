@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_abrmd_grow_generate_wizard_form" model="ir.ui.view">
+        <field name="name">abrmd.grow.generate.wizard.form</field>
+        <field name="model">abrmd.grow.generate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Générer un post via Anthony Growth Agent">
+                <sheet>
+                    <group invisible="state != 'input'">
+                        <group>
+                            <field name="canal"/>
+                            <field name="objectif"/>
+                            <field name="scheduled_date"/>
+                            <field name="model_override"/>
+                            <field name="n_proposals"/>
+                        </group>
+                        <group>
+                            <field name="idea_id"/>
+                            <field name="pattern_ids" widget="many2many_tags"/>
+                            <field name="product_id"/>
+                            <field name="task_id"/>
+                            <field name="project_id"/>
+                        </group>
+                    </group>
+                    <group invisible="state != 'input'">
+                        <field name="angle"
+                               placeholder="Ex. 'urgence livraison Suisse', 'avant/après client'…"/>
+                    </group>
+
+                    <group invisible="state != 'preview'">
+                        <field name="ai_model_used" readonly="1"/>
+                    </group>
+                    <notebook invisible="state != 'preview'">
+                        <page string="Proposition 1" name="prop1">
+                            <field name="proposal_1" widget="text"/>
+                        </page>
+                        <page string="Proposition 2" name="prop2">
+                            <field name="proposal_2" widget="text"/>
+                        </page>
+                        <page string="Proposition 3" name="prop3">
+                            <field name="proposal_3" widget="text"/>
+                        </page>
+                        <page string="Prompt + audit" name="prompt">
+                            <separator string="Prompt envoyé"/>
+                            <field name="prompt_preview" readonly="1"/>
+                            <separator string="Réponse brute"/>
+                            <field name="ai_response_raw" readonly="1"/>
+                        </page>
+                    </notebook>
+                    <group invisible="state != 'preview'">
+                        <field name="chosen" widget="radio" options="{'horizontal': true}"/>
+                    </group>
+
+                    <div class="alert alert-danger" role="alert" invisible="state != 'error'">
+                        <strong>Erreur :</strong>
+                        <field name="error_message" readonly="1" nolabel="1"/>
+                    </div>
+                    <field name="state" invisible="1"/>
+                </sheet>
+                <footer>
+                    <button name="action_generate_preview" type="object"
+                            string="Générer 3 brouillons" class="btn-primary"
+                            invisible="state == 'preview'"/>
+                    <button name="action_create_post" type="object"
+                            string="Créer le post avec la proposition choisie"
+                            class="btn-primary"
+                            invisible="state != 'preview'"/>
+                    <button name="action_generate_preview" type="object"
+                            string="Régénérer"
+                            invisible="state != 'preview'"/>
+                    <button special="cancel" string="Annuler"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_abrmd_grow_generate_wizard" model="ir.actions.act_window">
+        <field name="name">Générer un post Grow</field>
+        <field name="res_model">abrmd.grow.generate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_abrmd_grow_generate"
+              name="Nouveau post (IA)"
+              parent="menu_abrmd_grow_root"
+              action="action_abrmd_grow_generate_wizard"
+              sequence="5"/>
+
+</odoo>

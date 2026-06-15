@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_project_task_form_abrmd_grow" model="ir.ui.view">
+        <field name="name">project.task.form.abrmd.grow</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_abrmd_grow_posts"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-bullhorn">
+                    <field name="abrmd_grow_post_count" widget="statinfo"
+                           string="Posts Grow"/>
+                </button>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_open_abrmd_grow_wizard"
+                        type="object"
+                        string="Générer post Grow (Anthony Growth Agent)"
+                        class="btn-secondary"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sale_order_abis_discount" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='total']" position="before">
+            <t t-if="doc.abis_discount_applied and doc.abis_discount_ttc_mode == 'amount'">
+                <p class="text-muted text-end">
+                    <em>Remise globale TTC appliquée :
+                        <span t-field="doc.abis_discount_ttc_amount"
+                              t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    </em>
+                </p>
+            </t>
+            <t t-if="doc.abis_discount_applied and doc.abis_discount_ttc_mode == 'percent'">
+                <p class="text-muted text-end">
+                    <em>Remise globale TTC appliquée :
+                        <span t-out="'%.2f' % (doc.abis_discount_ttc_percent or 0.0)"/>%
+                    </em>
+                </p>
+            </t>
+        </xpath>
+    </template>
+</odoo>

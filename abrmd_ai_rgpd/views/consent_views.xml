@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_abrmd_rgpd_consent_list" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.consent.list</field>
+            <field name="model">abrmd.rgpd.consent</field>
+            <field name="arch" type="xml">
+                <list string="Consentements" decoration-success="state == 'given'" decoration-muted="state == 'withdrawn'" decoration-danger="state == 'expired'">
+                    <field name="subject_email"/>
+                    <field name="registre_id"/>
+                    <field name="purpose"/>
+                    <field name="state" widget="badge"/>
+                    <field name="capture_method"/>
+                    <field name="consent_date"/>
+                    <field name="withdrawal_date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_abrmd_rgpd_consent_form" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.consent.form</field>
+            <field name="model">abrmd.rgpd.consent</field>
+            <field name="arch" type="xml">
+                <form string="Consentement">
+                    <header>
+                        <button name="action_withdraw" type="object" string="Retirer" class="btn-warning" invisible="state != 'given'"/>
+                        <button name="action_renew" type="object" string="Renouveler" class="btn-primary" invisible="state == 'given'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="given,withdrawn,expired"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="name" readonly="1"/></h1>
+                        </div>
+                        <group>
+                            <group string="Personne concernée">
+                                <field name="partner_id"/>
+                                <field name="subject_email"/>
+                                <field name="subject_hash" readonly="1" groups="group_abrmd_rgpd_manager"/>
+                            </group>
+                            <group string="Finalité">
+                                <field name="registre_id"/>
+                                <field name="purpose"/>
+                                <field name="expiry_date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Capture">
+                                <field name="capture_method"/>
+                                <field name="consent_date"/>
+                                <field name="withdrawal_date" invisible="state != 'withdrawn'"/>
+                                <field name="notice_version"/>
+                            </group>
+                            <group string="Preuve">
+                                <field name="proof_url" widget="url"/>
+                                <field name="proof_ip"/>
+                                <field name="proof_user_agent"/>
+                            </group>
+                        </group>
+                        <field name="notes" placeholder="Notes optionnelles"/>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_abrmd_rgpd_consent_search" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.consent.search</field>
+            <field name="model">abrmd.rgpd.consent</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="subject_email"/>
+                    <field name="registre_id"/>
+                    <field name="purpose"/>
+                    <separator/>
+                    <filter name="given" string="Actifs" domain="[('state', '=', 'given')]"/>
+                    <filter name="withdrawn" string="Retirés" domain="[('state', '=', 'withdrawn')]"/>
+                    <filter name="expired" string="Expirés" domain="[('state', '=', 'expired')]"/>
+                    <group string="Group by">
+                        <filter name="gb_registre" string="Traitement" context="{'group_by': 'registre_id'}"/>
+                        <filter name="gb_state" string="État" context="{'group_by': 'state'}"/>
+                        <filter name="gb_method" string="Mode de capture" context="{'group_by': 'capture_method'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_abrmd_rgpd_consent" model="ir.actions.act_window">
+            <field name="name">Consentements</field>
+            <field name="res_model">abrmd.rgpd.consent</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_abrmd_rgpd_consent_search"/>
+            <field name="context">{'search_default_given': 1}</field>
+        </record>
+    </data>
+</odoo>

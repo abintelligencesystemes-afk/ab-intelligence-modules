@@ -1,0 +1,20 @@
+// abis_company_colors — charge dynamiquement le CSS de la compagnie active.
+// Le vrai CSS est servi par le controller /abis_colors/<id>.css
+// Ce SCSS expose juste les variables par défaut pour l'edition mode.
+:root {
+    --abis-color-primary: #714B67;
+    --abis-color-secondary: #017E84;
+    --abis-color-accent: #F2C641;
+}
+
+.o_portal {
+    .btn-primary {
+        background-color: var(--abis-color-primary);
+        border-color: var(--abis-color-primary);
+    }
+
+    .badge-accent {
+        background-color: var(--abis-color-accent);
+        color: #fff;
+    }
+}

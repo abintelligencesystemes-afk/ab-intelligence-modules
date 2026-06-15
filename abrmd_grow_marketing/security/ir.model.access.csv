@@ -1,0 +1,18 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_abrmd_grow_post_user,abrmd.grow.post user,model_abrmd_grow_post,base.group_user,1,1,1,0
+access_abrmd_grow_post_admin,abrmd.grow.post admin,model_abrmd_grow_post,base.group_system,1,1,1,1
+access_abrmd_grow_idea_user,abrmd.grow.idea user,model_abrmd_grow_idea,base.group_user,1,1,1,0
+access_abrmd_grow_idea_admin,abrmd.grow.idea admin,model_abrmd_grow_idea,base.group_system,1,1,1,1
+access_abrmd_grow_media_user,abrmd.grow.media user,model_abrmd_grow_media,base.group_user,1,1,1,0
+access_abrmd_grow_media_admin,abrmd.grow.media admin,model_abrmd_grow_media,base.group_system,1,1,1,1
+access_abrmd_grow_pattern_user,abrmd.grow.pattern user,model_abrmd_grow_pattern,base.group_user,1,0,0,0
+access_abrmd_grow_pattern_admin,abrmd.grow.pattern admin,model_abrmd_grow_pattern,base.group_system,1,1,1,1
+access_abrmd_grow_veille_user,abrmd.grow.veille.video user,model_abrmd_grow_veille_video,base.group_user,1,0,0,0
+access_abrmd_grow_veille_admin,abrmd.grow.veille.video admin,model_abrmd_grow_veille_video,base.group_system,1,1,1,1
+access_abrmd_grow_tag_user,abrmd.grow.tag user,model_abrmd_grow_tag,base.group_user,1,1,1,0
+access_abrmd_grow_tag_admin,abrmd.grow.tag admin,model_abrmd_grow_tag,base.group_system,1,1,1,1
+access_abrmd_grow_video_user,abrmd.grow.video user,model_abrmd_grow_video,base.group_user,1,1,1,0
+access_abrmd_grow_video_admin,abrmd.grow.video admin,model_abrmd_grow_video,base.group_system,1,1,1,1
+access_abrmd_grow_generate_wizard_user,abrmd.grow.generate.wizard user,model_abrmd_grow_generate_wizard,base.group_user,1,1,1,1
+access_abrmd_grow_media_import_wizard_admin,abrmd.grow.media.import.wizard admin,model_abrmd_grow_media_import_wizard,base.group_system,1,1,1,1
+access_abrmd_grow_video_wizard_user,abrmd.grow.video.wizard user,model_abrmd_grow_video_wizard,base.group_user,1,1,1,1

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_cheque_remise_report" model="ir.actions.report">
+        <field name="name">Bordereau de remise chèques</field>
+        <field name="model">abis.cheque.remise</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">abis_cheque_workflow.cheque_remise_qweb</field>
+        <field name="report_file">abis_cheque_workflow.cheque_remise_qweb</field>
+        <field name="binding_model_id" ref="model_abis_cheque_remise"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="cheque_remise_qweb">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Bordereau de remise chèques — <span t-field="doc.name"/></h2>
+                        <p>
+                            <strong>Date :</strong>
+                            <span t-field="doc.deposit_date"/>
+                            — <strong>Banque :</strong>
+                            <span t-field="doc.bank_journal_id.name"/>
+                        </p>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Réf.</th>
+                                    <th>Émetteur</th>
+                                    <th>N° chèque</th>
+                                    <th>Banque</th>
+                                    <th class="text-right">Montant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.cheque_ids" t-as="cheque">
+                                    <td><span t-field="cheque.name"/></td>
+                                    <td><span t-field="cheque.partner_id.name"/></td>
+                                    <td><span t-field="cheque.cheque_number"/></td>
+                                    <td><span t-field="cheque.bank_name"/></td>
+                                    <td class="text-right">
+                                        <span t-field="cheque.amount"
+                                              t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4" class="text-right">Total bordereau</th>
+                                    <th class="text-right">
+                                        <span t-field="doc.total_amount"
+                                              t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <p class="mt-4">
+                            <strong>Signature et cachet de l'agent bancaire :</strong>
+                        </p>
+                        <div style="border: 1px solid #ccc; height: 80px;"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

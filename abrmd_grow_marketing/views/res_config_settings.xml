@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="abrmd_grow_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.abrmd.grow</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Grow Marketing"
+                     string="Grow Marketing"
+                     name="abrmd_grow_marketing"
+                     groups="base.group_system">
+                    <block title="Anthony Growth Agent (IA)" name="abrmd_grow_ai">
+                        <setting id="abrmd_grow_enabled_setting"
+                                 help="Activer / désactiver le module.">
+                            <field name="abrmd_grow_enabled"/>
+                        </setting>
+                        <setting id="abrmd_grow_killed_setting"
+                                 help="Kill switch local (désactive immédiatement).">
+                            <field name="abrmd_grow_killed"/>
+                        </setting>
+                        <setting id="abrmd_grow_openai_api_key_setting"
+                                 help="Clé API OpenAI utilisée pour la génération de posts.
+                                       À chiffrer côté hébergeur. Lue depuis ir.config_parameter `openai.api_key`.">
+                            <field name="abrmd_grow_openai_api_key" password="True"/>
+                        </setting>
+                        <setting id="abrmd_grow_openai_model_setting"
+                                 help="Modèle GPT à utiliser. Défaut : gpt-4o-mini.">
+                            <field name="abrmd_grow_openai_model"/>
+                        </setting>
+                        <setting id="abrmd_grow_custom_gpt_url_setting"
+                                 help="URL du Custom GPT Anthony Growth Agent (référence).">
+                            <field name="abrmd_grow_custom_gpt_url"/>
+                        </setting>
+                    </block>
+                    <block title="abi-control-plane" name="abrmd_grow_control">
+                        <setting id="abrmd_grow_control_plane_url_setting"
+                                 help="URL du control plane AB Intelligence (télémétrie + kill switch distant).">
+                            <field name="abrmd_grow_control_plane_url"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_abrmd_grow_config_settings" model="ir.actions.act_window">
+        <field name="name">Configuration Grow Marketing</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'abrmd_grow_marketing'}</field>
+    </record>
+
+    <menuitem id="menu_abrmd_grow_config_settings"
+              name="Paramètres"
+              parent="menu_abrmd_grow_config_root"
+              action="action_abrmd_grow_config_settings"
+              sequence="10"
+              groups="base.group_system"/>
+
+</odoo>

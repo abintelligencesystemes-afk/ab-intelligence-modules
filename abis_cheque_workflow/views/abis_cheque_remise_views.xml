@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_abis_cheque_remise_tree" model="ir.ui.view">
+        <field name="name">abis.cheque.remise.tree</field>
+        <field name="model">abis.cheque.remise</field>
+        <field name="arch" type="xml">
+            <list string="Bordereaux de remise">
+                <field name="name"/>
+                <field name="deposit_date"/>
+                <field name="bank_journal_id"/>
+                <field name="cheque_count"/>
+                <field name="total_amount" sum="Total"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_abis_cheque_remise_form" model="ir.ui.view">
+        <field name="name">abis.cheque.remise.form</field>
+        <field name="model">abis.cheque.remise</field>
+        <field name="arch" type="xml">
+            <form string="Bordereau remise">
+                <header>
+                    <button name="action_deposit" string="Déposer en banque"
+                            type="object" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_cash_all" string="Tout encaisser"
+                            type="object" invisible="state != 'deposited'"/>
+                    <button name="action_print_report" string="Imprimer"
+                            type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="deposit_date"/>
+                            <field name="bank_journal_id"/>
+                        </group>
+                        <group>
+                            <field name="cheque_count"/>
+                            <field name="total_amount"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Chèques">
+                            <field name="cheque_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="cheque_number"/>
+                                    <field name="bank_name"/>
+                                    <field name="amount"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_abis_cheque_remise" model="ir.actions.act_window">
+        <field name="name">Bordereaux de remise</field>
+        <field name="res_model">abis.cheque.remise</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

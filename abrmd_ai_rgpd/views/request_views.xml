@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_abrmd_rgpd_request_list" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.request.list</field>
+            <field name="model">abrmd.rgpd.request</field>
+            <field name="arch" type="xml">
+                <list string="Demandes RGPD" decoration-danger="is_overdue" decoration-warning="days_to_deadline &lt; 7 and not is_overdue and state not in ('done', 'refused')" decoration-muted="state in ('done', 'refused')">
+                    <field name="name"/>
+                    <field name="request_type"/>
+                    <field name="subject_name"/>
+                    <field name="subject_email"/>
+                    <field name="received_date"/>
+                    <field name="deadline_date"/>
+                    <field name="days_to_deadline" string="Jours restants"/>
+                    <field name="state" widget="badge"/>
+                    <field name="is_overdue" invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_abrmd_rgpd_request_form" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.request.form</field>
+            <field name="model">abrmd.rgpd.request</field>
+            <field name="arch" type="xml">
+                <form string="Demande RGPD">
+                    <header>
+                        <button name="action_mark_received" type="object" string="Marquer reçue" class="btn-primary" invisible="state != 'draft'"/>
+                        <button name="action_identity_verified" type="object" string="Identité vérifiée" class="btn-primary" invisible="state not in ('received', 'identity_check')"/>
+                        <button name="action_extend_deadline" type="object" string="Prolonger délai (Art.12.3)" invisible="state in ('done', 'refused')" confirm="Confirme la prolongation du délai légal (motif obligatoire) ?"/>
+                        <button name="action_close_done" type="object" string="Clôturer (réponse envoyée)" class="btn-success" invisible="state in ('draft', 'done', 'refused')"/>
+                        <button name="action_close_refused" type="object" string="Refuser" class="btn-warning" invisible="state in ('draft', 'done', 'refused')"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,received,identity_check,in_progress,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1><field name="name" readonly="1"/></h1>
+                        </div>
+                        <group>
+                            <group string="Type de demande">
+                                <field name="request_type"/>
+                                <field name="received_date"/>
+                                <field name="deadline_date" readonly="1"/>
+                                <field name="days_to_deadline" readonly="1" decoration-danger="is_overdue"/>
+                                <field name="is_overdue" invisible="1"/>
+                            </group>
+                            <group string="Demandeur">
+                                <field name="partner_id"/>
+                                <field name="subject_name"/>
+                                <field name="subject_email"/>
+                                <field name="subject_phone"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Demande">
+                                <field name="description" placeholder="Détail de la demande, contexte, pièces fournies par le sujet..."/>
+                            </page>
+                            <page string="Vérification d'identité (Art.12.6)">
+                                <group>
+                                    <field name="identity_verified"/>
+                                    <field name="identity_verification_method"/>
+                                </group>
+                            </page>
+                            <page string="Traitement et réponse" invisible="state == 'draft'">
+                                <field name="response" placeholder="Compose ta réponse au demandeur..."/>
+                                <field name="response_attachment_ids" widget="many2many_binary"/>
+                            </page>
+                            <page string="Prolongation / Refus" invisible="state not in ('extended', 'refused')">
+                                <group>
+                                    <field name="extension_reason" invisible="state != 'extended'"/>
+                                    <field name="refusal_reason" invisible="state != 'refused'"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_abrmd_rgpd_request_search" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.request.search</field>
+            <field name="model">abrmd.rgpd.request</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="subject_email"/>
+                    <field name="request_type"/>
+                    <separator/>
+                    <filter name="open" string="En cours" domain="[('state', 'in', ['received', 'identity_check', 'in_progress', 'extended'])]"/>
+                    <filter name="overdue" string="En retard ⚠" domain="[('is_overdue', '=', True)]"/>
+                    <filter name="done" string="Clôturées" domain="[('state', 'in', ['done', 'refused'])]"/>
+                    <group string="Group by">
+                        <filter name="gb_type" string="Type" context="{'group_by': 'request_type'}"/>
+                        <filter name="gb_state" string="État" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_abrmd_rgpd_request" model="ir.actions.act_window">
+            <field name="name">Demandes RGPD</field>
+            <field name="res_model">abrmd.rgpd.request</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_abrmd_rgpd_request_search"/>
+            <field name="context">{'search_default_open': 1}</field>
+        </record>
+    </data>
+</odoo>

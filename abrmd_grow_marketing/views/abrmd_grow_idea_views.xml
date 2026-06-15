@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ===================== TAG ===================== -->
+    <record id="view_abrmd_grow_tag_list" model="ir.ui.view">
+        <field name="name">abrmd.grow.tag.list</field>
+        <field name="model">abrmd.grow.tag</field>
+        <field name="arch" type="xml">
+            <list string="Tags Grow" editable="bottom">
+                <field name="name"/>
+                <field name="color" widget="color_picker"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_abrmd_grow_tag" model="ir.actions.act_window">
+        <field name="name">Tags Grow</field>
+        <field name="res_model">abrmd.grow.tag</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- ===================== IDEA ===================== -->
+    <record id="view_abrmd_grow_idea_kanban" model="ir.ui.view">
+        <field name="name">abrmd.grow.idea.kanban</field>
+        <field name="model">abrmd.grow.idea</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" sample="1" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="canal_suggested"/>
+                <field name="state"/>
+                <field name="color"/>
+                <field name="priority"/>
+                <field name="source"/>
+                <field name="description"/>
+                <field name="post_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div>
+                                    <span class="badge text-bg-info">
+                                        <field name="canal_suggested"/>
+                                    </span>
+                                    <span class="badge text-bg-secondary">
+                                        <field name="source"/>
+                                    </span>
+                                    <field name="priority" widget="priority"/>
+                                </div>
+                                <div t-if="record.description.raw_value">
+                                    <small><field name="description"/></small>
+                                </div>
+                                <div t-if="record.post_count.raw_value > 0">
+                                    <span class="badge text-bg-success">
+                                        <field name="post_count"/> post(s)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_abrmd_grow_idea_list" model="ir.ui.view">
+        <field name="name">abrmd.grow.idea.list</field>
+        <field name="model">abrmd.grow.idea</field>
+        <field name="arch" type="xml">
+            <list string="Idées Grow Marketing" sample="1">
+                <field name="create_date" optional="show"/>
+                <field name="name"/>
+                <field name="canal_suggested"/>
+                <field name="source" widget="badge"/>
+                <field name="priority" widget="priority"/>
+                <field name="state"
+                       decoration-info="state == 'proposed'"
+                       decoration-success="state == 'approved'"
+                       decoration-muted="state == 'rejected'"
+                       decoration-primary="state == 'used'"
+                       widget="badge"/>
+                <field name="pattern_id" optional="hide"/>
+                <field name="product_id" optional="show"/>
+                <field name="post_count" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_abrmd_grow_idea_form" model="ir.ui.view">
+        <field name="name">abrmd.grow.idea.form</field>
+        <field name="model">abrmd.grow.idea</field>
+        <field name="arch" type="xml">
+            <form string="Idée Grow Marketing">
+                <header>
+                    <button name="action_approve" type="object"
+                            string="Approuver" class="oe_highlight"
+                            invisible="state != 'proposed'"/>
+                    <button name="action_reject" type="object"
+                            string="Rejeter"
+                            invisible="state not in ('proposed', 'approved')"/>
+                    <button name="action_create_post_draft" type="object"
+                            string="Générer brouillon de post" class="oe_highlight"
+                            invisible="state == 'rejected'"/>
+                    <button name="action_back_to_proposed" type="object"
+                            string="Remettre proposée"
+                            invisible="state == 'proposed'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="proposed,approved,used"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_posts" icon="fa-newspaper-o"
+                                invisible="post_count == 0">
+                            <field name="post_count" widget="statinfo" string="Posts"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Idée courte percutante…"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="canal_suggested"/>
+                            <field name="source"/>
+                            <field name="priority" widget="priority"/>
+                            <field name="created_by_cron" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="pattern_id" options="{'no_create': True}"/>
+                            <field name="product_id" options="{'no_create': True}"/>
+                            <field name="partner_id" options="{'no_create': True}"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color', 'no_create_edit': False}"/>
+                            <field name="color" widget="color_picker"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description / brief" name="desc_page">
+                            <field name="description"
+                                   placeholder="Brief détaillé : angle, hook, CTA souhaité…"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_abrmd_grow_idea_search" model="ir.ui.view">
+        <field name="name">abrmd.grow.idea.search</field>
+        <field name="model">abrmd.grow.idea</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="pattern_id"/>
+                <field name="product_id"/>
+                <field name="tag_ids"/>
+                <separator/>
+                <filter string="Proposées" name="f_proposed"
+                        domain="[('state', '=', 'proposed')]"/>
+                <filter string="Approuvées" name="f_approved"
+                        domain="[('state', '=', 'approved')]"/>
+                <filter string="Utilisées" name="f_used"
+                        domain="[('state', '=', 'used')]"/>
+                <filter string="Créées par cron" name="f_cron"
+                        domain="[('created_by_cron', '=', True)]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="État" name="g_state" context="{'group_by': 'state'}"/>
+                    <filter string="Canal suggéré" name="g_canal" context="{'group_by': 'canal_suggested'}"/>
+                    <filter string="Source" name="g_source" context="{'group_by': 'source'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_abrmd_grow_idea" model="ir.actions.act_window">
+        <field name="name">Idées Grow</field>
+        <field name="res_model">abrmd.grow.idea</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_abrmd_grow_idea_search"/>
+        <field name="context">{'search_default_f_proposed': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Aucune idée pour le moment.</p>
+            <p>
+                Les idées sont créées manuellement ou via le cron
+                <i>Proposer 3 idées chaque jour</i>. Approuve, rejette, ou
+                génère un brouillon de post depuis l'idée.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_abrmd_grow_ideas"
+              name="Idées"
+              parent="menu_abrmd_grow_root"
+              action="action_abrmd_grow_idea"
+              sequence="10"/>
+
+    <menuitem id="menu_abrmd_grow_tags"
+              name="Tags"
+              parent="menu_abrmd_grow_config_root"
+              action="action_abrmd_grow_tag"
+              sequence="40"/>
+
+</odoo>

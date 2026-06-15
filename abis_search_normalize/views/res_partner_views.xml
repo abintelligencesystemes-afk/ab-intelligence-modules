@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- name_normalized est un champ technique, on l'expose en search view
+         uniquement pour les admins/dev. -->
+    <record id="view_res_partner_search_abis_normalize" model="ir.ui.view">
+        <field name="name">res.partner.search.abis.normalize</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="name_normalized" string="Recherche normalisée (sans accents)"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

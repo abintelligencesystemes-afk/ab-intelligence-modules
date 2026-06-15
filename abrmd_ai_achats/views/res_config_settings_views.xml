@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_abrmd_ai_achats" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.abrmd_ai_achats</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[1]" position="before">
+                <block title="AB Intelligence — AI Achats" name="abrmd_ai_achats_settings">
+                    <setting id="abrmd_ai_achats_enabled_setting"
+                             string="Module AI Achats activé"
+                             help="Active l'OCR factures via OpenAI Vision (bypass IAP)">
+                        <field name="abrmd_ai_achats_enabled"/>
+                    </setting>
+                    <setting id="abrmd_ai_achats_worker_url_setting"
+                             string="URL Worker OCR"
+                             help="Endpoint Cloudflare Worker abi-control-plane">
+                        <field name="abrmd_ai_achats_worker_url"/>
+                    </setting>
+                    <setting id="abrmd_ai_achats_license_key_setting"
+                             string="License Key JWT"
+                             help="Émise lors du checkout Stripe">
+                        <field name="abrmd_ai_achats_license_key" password="True"/>
+                    </setting>
+                    <setting id="abrmd_ai_achats_instance_uuid_setting"
+                             string="Instance UUID"
+                             help="UUID v4 unique de cette instance Odoo">
+                        <field name="abrmd_ai_achats_instance_uuid"/>
+                    </setting>
+                    <setting id="abrmd_ai_achats_model_setting"
+                             string="Modèle OpenAI">
+                        <field name="abrmd_ai_achats_model"/>
+                    </setting>
+                    <setting id="abrmd_ai_achats_timeout_setting"
+                             string="Timeout HTTP (s)">
+                        <field name="abrmd_ai_achats_timeout_sec"/>
+                    </setting>
+                    <setting id="abrmd_ai_achats_signature_threshold_setting"
+                             string="Seuil signature fournisseur (0..1)">
+                        <field name="abrmd_ai_achats_signature_threshold"/>
+                    </setting>
+                    <setting id="abrmd_ai_achats_product_match_threshold_setting"
+                             string="Seuil matching produit (0..1)">
+                        <field name="abrmd_ai_achats_product_match_threshold"/>
+                    </setting>
+                    <setting id="abrmd_ai_achats_killed_setting"
+                             string="Mode kill (urgence)"
+                             help="Désactive immédiatement tous les appels OCR">
+                        <field name="abrmd_ai_achats_killed"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

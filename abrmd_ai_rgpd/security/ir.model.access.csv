@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_abrmd_rgpd_registre_dpo,abrmd.rgpd.registre.dpo,model_abrmd_rgpd_registre,group_abrmd_rgpd_dpo,1,1,1,1
+access_abrmd_rgpd_registre_user,abrmd.rgpd.registre.user,model_abrmd_rgpd_registre,base.group_user,1,0,0,0
+access_abrmd_rgpd_consent_dpo,abrmd.rgpd.consent.dpo,model_abrmd_rgpd_consent,group_abrmd_rgpd_dpo,1,1,1,1
+access_abrmd_rgpd_consent_user,abrmd.rgpd.consent.user,model_abrmd_rgpd_consent,base.group_user,1,1,1,0
+access_abrmd_rgpd_request_dpo,abrmd.rgpd.request.dpo,model_abrmd_rgpd_request,group_abrmd_rgpd_dpo,1,1,1,1
+access_abrmd_rgpd_request_user,abrmd.rgpd.request.user,model_abrmd_rgpd_request,base.group_user,1,0,1,0
+access_abrmd_rgpd_access_log_dpo,abrmd.rgpd.access.log.dpo,model_abrmd_rgpd_access_log,group_abrmd_rgpd_dpo,1,0,1,0
+access_abrmd_rgpd_access_log_manager,abrmd.rgpd.access.log.manager,model_abrmd_rgpd_access_log,group_abrmd_rgpd_manager,1,1,1,1
+access_abrmd_rgpd_dashboard_dpo,abrmd.rgpd.dashboard.dpo,model_abrmd_rgpd_dashboard,group_abrmd_rgpd_dpo,1,1,1,1

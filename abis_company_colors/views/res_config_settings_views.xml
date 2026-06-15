@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_abis_colors" model="ir.ui.view">
+        <field name="name">res.config.settings.abis.colors</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='companies']" position="inside">
+                <setting id="abis_company_colors_setting"
+                         title="Couleurs corporate"
+                         help="Personnalise les couleurs portail / emails / rapports par compagnie.">
+                    <field name="abis_colors_active"/>
+                    <div class="content-group" invisible="not abis_colors_active">
+                        <div class="row mt8">
+                            <label for="abis_color_primary" class="col-md-4"/>
+                            <field name="abis_color_primary" widget="color" class="col-md-8"/>
+                        </div>
+                        <div class="row">
+                            <label for="abis_color_secondary" class="col-md-4"/>
+                            <field name="abis_color_secondary" widget="color" class="col-md-8"/>
+                        </div>
+                        <div class="row">
+                            <label for="abis_color_accent" class="col-md-4"/>
+                            <field name="abis_color_accent" widget="color" class="col-md-8"/>
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

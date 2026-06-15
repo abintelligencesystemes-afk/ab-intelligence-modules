@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="32" fill="#1e40af"/>
+  <text x="100" y="80" font-family="Helvetica, Arial, sans-serif" font-size="36" font-weight="bold" fill="#fff" text-anchor="middle">AI</text>
+  <text x="100" y="120" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#bfdbfe" text-anchor="middle">Achats</text>
+  <text x="100" y="160" font-family="Helvetica, Arial, sans-serif" font-size="11" fill="#e0e7ff" text-anchor="middle">AB Intelligence</text>
+  <circle cx="100" cy="170" r="3" fill="#fbbf24"/>
+  <text x="100" y="188" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#fbbf24" text-anchor="middle">v0.2.0</text>
+</svg>

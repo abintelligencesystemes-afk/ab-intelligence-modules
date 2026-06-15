@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_abrmd_ai_achats_root"
+        name="AI Achats"
+        sequence="50"
+        web_icon="abrmd_ai_achats,static/description/icon.png"/>
+
+    <menuitem
+        id="menu_abrmd_ai_achats_scans"
+        name="Scans OCR"
+        parent="menu_abrmd_ai_achats_root"
+        action="action_abrmd_ai_achat_scan"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_abrmd_ai_achats_referentiel"
+        name="Référentiels d'apprentissage"
+        parent="menu_abrmd_ai_achats_root"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_abrmd_ai_achats_signatures"
+        name="Signatures fournisseurs"
+        parent="menu_abrmd_ai_achats_referentiel"
+        action="action_abrmd_ai_supplier_signature"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_abrmd_ai_achats_products"
+        name="Matching produits"
+        parent="menu_abrmd_ai_achats_referentiel"
+        action="action_abrmd_ai_product_match"
+        sequence="20"/>
+
+    <menuitem
+        id="menu_abrmd_ai_achats_cache"
+        name="Cache OCR"
+        parent="menu_abrmd_ai_achats_referentiel"
+        action="action_abrmd_ai_invoice_cache"
+        sequence="30"/>
+
+    <menuitem
+        id="menu_abrmd_ai_achats_settings"
+        name="Configuration"
+        parent="menu_abrmd_ai_achats_root"
+        action="base.action_general_configuration"
+        sequence="90"
+        groups="base.group_system"/>
+</odoo>

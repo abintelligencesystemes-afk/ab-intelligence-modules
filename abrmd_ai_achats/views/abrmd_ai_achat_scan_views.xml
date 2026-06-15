@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_abrmd_ai_achat_scan_list" model="ir.ui.view">
+        <field name="name">abrmd.ai.achat.scan.list</field>
+        <field name="model">abrmd.ai.achat.scan</field>
+        <field name="arch" type="xml">
+            <list string="Scans OCR" decoration-success="state == 'validated'"
+                  decoration-warning="state == 'review'"
+                  decoration-danger="state == 'failed'"
+                  decoration-info="source == 'cache_hit'">
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="scan_type"/>
+                <field name="fournisseur_detected"/>
+                <field name="reference_detected"/>
+                <field name="montant_ttc_detected" sum="Total TTC"/>
+                <field name="confidence" widget="progressbar"/>
+                <field name="source"/>
+                <field name="cost_usd" sum="Total coût USD"/>
+                <field name="state" widget="badge"/>
+                <field name="move_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_abrmd_ai_achat_scan_form" model="ir.ui.view">
+        <field name="name">abrmd.ai.achat.scan.form</field>
+        <field name="model">abrmd.ai.achat.scan</field>
+        <field name="arch" type="xml">
+            <form string="Scan OCR">
+                <header>
+                    <button name="action_run_ocr" type="object"
+                            string="Lancer OCR"
+                            class="btn-primary"
+                            invisible="state in ('ocr_done','validated','cached')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,ocr_pending,ocr_done,validated"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Fichier">
+                            <field name="scanned_file" filename="scanned_filename"/>
+                            <field name="scanned_filename"/>
+                            <field name="scanned_mime_type"/>
+                            <field name="file_hash" readonly="1"/>
+                            <field name="file_size_kb" readonly="1"/>
+                        </group>
+                        <group string="Méta">
+                            <field name="scan_type"/>
+                            <field name="source" readonly="1"/>
+                            <field name="cost_usd" widget="monetary" readonly="1"/>
+                            <field name="tokens_in" readonly="1"/>
+                            <field name="tokens_out" readonly="1"/>
+                            <field name="model_used" readonly="1"/>
+                            <field name="duration_ms" readonly="1"/>
+                            <field name="cache_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Détecté par OCR">
+                        <group>
+                            <field name="fournisseur_detected" readonly="1"/>
+                            <field name="reference_detected" readonly="1"/>
+                            <field name="date_detected" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="montant_ht_detected" readonly="1"/>
+                            <field name="montant_ttc_detected" readonly="1"/>
+                            <field name="tva_amount_detected" readonly="1"/>
+                            <field name="confidence" widget="progressbar" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Résultats">
+                        <field name="partner_id"/>
+                        <field name="move_id"/>
+                        <field name="purchase_order_id"/>
+                        <field name="stock_picking_id"/>
+                        <field name="validated"/>
+                    </group>
+                    <notebook>
+                        <page string="JSON extrait">
+                            <field name="extracted_data" widget="text" readonly="1"/>
+                        </page>
+                        <page string="Texte OCR brut">
+                            <field name="raw_text" widget="text" readonly="1"/>
+                        </page>
+                        <page string="Erreur" invisible="not error_message">
+                            <field name="error_message" widget="text" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_abrmd_ai_achat_scan" model="ir.actions.act_window">
+        <field name="name">Scans OCR</field>
+        <field name="res_model">abrmd.ai.achat.scan</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Aucun scan OCR pour le moment.</p>
+            <p>Depuis une facture fournisseur (account.move), clique sur « OCR via OpenAI Vision » pour démarrer.</p>
+        </field>
+    </record>
+</odoo>

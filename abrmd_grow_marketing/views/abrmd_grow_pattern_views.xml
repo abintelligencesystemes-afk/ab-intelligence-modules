@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ===================== PATTERN ===================== -->
+    <record id="view_abrmd_grow_pattern_list" model="ir.ui.view">
+        <field name="name">abrmd.grow.pattern.list</field>
+        <field name="model">abrmd.grow.pattern</field>
+        <field name="arch" type="xml">
+            <list string="Patterns marketing" sample="1">
+                <field name="name"/>
+                <field name="pattern_type" widget="badge"/>
+                <field name="platform" widget="badge"/>
+                <field name="composite_score" widget="float" digits="[6,2]"/>
+                <field name="recency_weight" widget="float" digits="[6,2]" optional="hide"/>
+                <field name="last_seen"/>
+                <field name="veille_count" optional="show"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_abrmd_grow_pattern_form" model="ir.ui.view">
+        <field name="name">abrmd.grow.pattern.form</field>
+        <field name="model">abrmd.grow.pattern</field>
+        <field name="arch" type="xml">
+            <form string="Pattern marketing">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_veille_videos" icon="fa-video-camera"
+                                invisible="veille_count == 0">
+                            <field name="veille_count" widget="statinfo" string="Vidéos veille"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Inactif"
+                            bg_color="text-bg-secondary"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="pattern_type"/>
+                            <field name="platform"/>
+                            <field name="last_seen"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="composite_score"/>
+                            <field name="recency_weight" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="desc_page">
+                            <field name="description"/>
+                        </page>
+                        <page string="Exemples" name="examples_page">
+                            <field name="examples"/>
+                        </page>
+                        <page string="Notes" name="notes_page">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_abrmd_grow_pattern_search" model="ir.ui.view">
+        <field name="name">abrmd.grow.pattern.search</field>
+        <field name="model">abrmd.grow.pattern</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <separator/>
+                <filter string="Actifs" name="f_active" domain="[('active', '=', True)]"/>
+                <filter string="Hooks" name="f_hook" domain="[('pattern_type', '=', 'hook')]"/>
+                <filter string="CTAs" name="f_cta" domain="[('pattern_type', '=', 'cta')]"/>
+                <filter string="Score &gt; 1" name="f_score"
+                        domain="[('composite_score', '&gt;', 1)]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="Type" name="g_type" context="{'group_by': 'pattern_type'}"/>
+                    <filter string="Plateforme" name="g_plat" context="{'group_by': 'platform'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_abrmd_grow_pattern" model="ir.actions.act_window">
+        <field name="name">Patterns marketing</field>
+        <field name="res_model">abrmd.grow.pattern</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_abrmd_grow_pattern_search"/>
+        <field name="context">{'search_default_f_active': 1}</field>
+    </record>
+
+    <!-- ===================== VEILLE VIDEO ===================== -->
+    <record id="view_abrmd_grow_veille_list" model="ir.ui.view">
+        <field name="name">abrmd.grow.veille.video.list</field>
+        <field name="model">abrmd.grow.veille.video</field>
+        <field name="arch" type="xml">
+            <list string="Vidéos veille" sample="1">
+                <field name="published_at"/>
+                <field name="platform" widget="badge"/>
+                <field name="title"/>
+                <field name="hook_first_3s" optional="show"/>
+                <field name="cta" optional="hide"/>
+                <field name="engagement_rate" widget="percentage"/>
+                <field name="composite_score" widget="float" digits="[6,2]"/>
+                <field name="creator_handle" optional="hide"/>
+                <field name="pattern_id" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_abrmd_grow_veille_form" model="ir.ui.view">
+        <field name="name">abrmd.grow.veille.video.form</field>
+        <field name="model">abrmd.grow.veille.video</field>
+        <field name="arch" type="xml">
+            <form string="Vidéo veille">
+                <header>
+                    <button name="action_hash_creator" type="object"
+                            string="Anonymiser créateur (hash)"
+                            invisible="not creator_handle or creator_hash"/>
+                    <button name="action_parse_pattern_tags" type="object"
+                            string="Détecter pattern (tags)"
+                            invisible="not pattern_tags or pattern_id"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="title"/>
+                        <h1><field name="title"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="platform"/>
+                            <field name="external_id"/>
+                            <field name="url" widget="url"/>
+                            <field name="published_at"/>
+                            <field name="creator_handle"/>
+                            <field name="creator_hash" readonly="1"
+                                   invisible="not creator_hash"/>
+                        </group>
+                        <group>
+                            <field name="engagement_rate" widget="percentage"/>
+                            <field name="save_rate" widget="percentage"/>
+                            <field name="views"/>
+                            <field name="likes"/>
+                            <field name="comments"/>
+                            <field name="composite_score"/>
+                            <field name="pattern_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Hook + CTA détectés" name="hook_page">
+                            <group>
+                                <field name="hook_first_3s"/>
+                                <field name="cta"/>
+                                <field name="pattern_tags"
+                                       placeholder='["hook_curiosity", "cta_dm"]'/>
+                            </group>
+                        </page>
+                        <page string="Transcript" name="transcript_page">
+                            <field name="transcript"/>
+                        </page>
+                        <page string="Données brutes" name="raw_page">
+                            <field name="raw_data" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_abrmd_grow_veille" model="ir.actions.act_window">
+        <field name="name">Veille vidéos</field>
+        <field name="res_model">abrmd.grow.veille.video</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_abrmd_grow_patterns"
+              name="Patterns"
+              parent="menu_abrmd_grow_root"
+              action="action_abrmd_grow_pattern"
+              sequence="50"/>
+
+    <menuitem id="menu_abrmd_grow_veille"
+              name="Veille vidéos"
+              parent="menu_abrmd_grow_root"
+              action="action_abrmd_grow_veille"
+              sequence="60"/>
+
+</odoo>

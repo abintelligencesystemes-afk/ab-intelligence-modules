@@ -1,0 +1,97 @@
+#
+# Translators:
+# AB Intelligence — Anthony Boursier, 2026
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: abrmd_grow_marketing 19.0.0.2.0\n"
+"Report-Msgid-Bugs-To: contact@rmdsto.re\n"
+"POT-Creation-Date: 2026-05-23 00:00+0000\n"
+"PO-Revision-Date: 2026-05-23 00:00+0000\n"
+"Last-Translator: AB Intelligence\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Posts Grow Marketing"
+msgstr "Grow Marketing Posts"
+
+msgid "Idées Grow"
+msgstr "Grow Ideas"
+
+msgid "Bibliothèque médias"
+msgstr "Media Library"
+
+msgid "Patterns marketing"
+msgstr "Marketing Patterns"
+
+msgid "Veille vidéos"
+msgstr "Video Watch"
+
+msgid "Vidéos générées"
+msgstr "Generated Videos"
+
+msgid "Générer post via Anthony Growth Agent"
+msgstr "Generate post via Anthony Growth Agent"
+
+msgid "Générer une vidéo MP4"
+msgstr "Generate MP4 video"
+
+msgid "Brouillon"
+msgstr "Draft"
+
+msgid "À valider"
+msgstr "To Review"
+
+msgid "Programmé"
+msgstr "Scheduled"
+
+msgid "Publié"
+msgstr "Published"
+
+msgid "Annulé"
+msgstr "Cancelled"
+
+msgid "Proposée"
+msgstr "Proposed"
+
+msgid "Approuvée"
+msgstr "Approved"
+
+msgid "Utilisée"
+msgstr "Used"
+
+msgid "Rejetée"
+msgstr "Rejected"
+
+msgid "Génération en cours"
+msgstr "Generating"
+
+msgid "Prête"
+msgstr "Ready"
+
+msgid "Échec"
+msgstr "Failed"
+
+msgid "Canal"
+msgstr "Channel"
+
+msgid "Date de publication prévue"
+msgstr "Scheduled date"
+
+msgid "Calendrier éditorial"
+msgstr "Editorial Calendar"
+
+msgid "Coût estimé (€)"
+msgstr "Estimated cost (€)"
+
+msgid "Script (voix off)"
+msgstr "Script (voiceover)"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Voix off"
+msgstr "Voiceover"

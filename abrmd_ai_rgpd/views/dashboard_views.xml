@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_abrmd_rgpd_dashboard_form" model="ir.ui.view">
+            <field name="name">abrmd.rgpd.dashboard.form</field>
+            <field name="model">abrmd.rgpd.dashboard</field>
+            <field name="arch" type="xml">
+                <form string="Dashboard DPO" create="false" edit="false">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>🛡️ Dashboard DPO RGPD</h1>
+                            <div class="text-muted">
+                                DPO : <field name="dpo_name" readonly="1" nolabel="1" class="oe_inline"/>
+                                · <field name="dpo_email" readonly="1" nolabel="1" class="oe_inline"/>
+                            </div>
+                        </div>
+
+                        <field name="alerts_html" readonly="1" nolabel="1" widget="html"/>
+
+                        <group string="Pilier 1 — Registre Art.30">
+                            <field name="registre_count" readonly="1"/>
+                            <field name="registre_sensitive_count" readonly="1"/>
+                        </group>
+
+                        <group string="Pilier 2 — Consentements">
+                            <field name="consent_active_count" readonly="1"/>
+                            <field name="consent_withdrawn_count" readonly="1"/>
+                            <field name="consent_expired_count" readonly="1"/>
+                        </group>
+
+                        <group string="Pilier 3 — Demandes (droits)">
+                            <field name="request_open_count" readonly="1"/>
+                            <field name="request_at_risk_count" readonly="1"/>
+                            <field name="request_overdue_count" readonly="1"/>
+                            <field name="request_done_30d" readonly="1"/>
+                        </group>
+
+                        <group string="Pilier 5 — Logs d'accès (24h)">
+                            <field name="access_logs_24h" readonly="1"/>
+                            <field name="access_logs_sensitive_24h" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

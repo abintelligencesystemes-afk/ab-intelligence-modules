@@ -1,0 +1,25 @@
+                   GNU LESSER GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+ Copyright (C) 2026 AB Intelligence Systèmes — Anthony Boursier
+
+ Everyone is permitted to copy and distribute verbatim copies of this
+ license document, but changing it is not allowed.
+
+ This module ("abrmd_ai_rgpd") is licensed under the LGPL-3.0 license.
+ Full text available at https://www.gnu.org/licenses/lgpl-3.0.html.
+
+ You are free to:
+ - use this software for any purpose, including commercial
+ - modify the source code
+ - redistribute copies
+ - distribute modified versions
+
+ Under the following conditions:
+ - if you distribute modified versions, you must license them under LGPL-3 too
+ - you must include this license notice
+ - you must indicate changes made to the source
+
+ NO WARRANTY: This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to warranties of merchantability,
+ fitness for a particular purpose and noninfringement.

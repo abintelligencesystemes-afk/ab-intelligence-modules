@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="abrmd_grow_param_enabled" model="ir.config_parameter">
+            <field name="key">abrmd_grow_marketing.enabled</field>
+            <field name="value">True</field>
+        </record>
+        <record id="abrmd_grow_param_openai_model" model="ir.config_parameter">
+            <field name="key">abrmd_grow_marketing.openai_model</field>
+            <field name="value">gpt-4o-mini</field>
+        </record>
+        <record id="abrmd_grow_param_custom_gpt" model="ir.config_parameter">
+            <field name="key">abrmd_grow_marketing.custom_gpt_url</field>
+            <field name="value">https://chatgpt.com/g/g-6a00b8f103b48191bdf2588df911e72a</field>
+        </record>
+        <record id="abrmd_grow_param_control_plane" model="ir.config_parameter">
+            <field name="key">abrmd_grow_marketing.control_plane_url</field>
+            <field name="value">https://abi-control.rmd-store.com/v1</field>
+        </record>
+        <record id="abrmd_grow_param_killed" model="ir.config_parameter">
+            <field name="key">abrmd_grow_marketing.killed</field>
+            <field name="value">False</field>
+        </record>
+    </data>
+</odoo>
