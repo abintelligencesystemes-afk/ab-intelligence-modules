@@ -17,7 +17,7 @@ Module Odoo de mise en conformité RGPD complète, structuré en 6 piliers :
 
 Compatible RGPD strict zone UE. Aucun call-home obligatoire. Compatible audit CNIL.
 """,
-    "version": "19.0.0.2.0",
+    "version": "19.0.0.2.1",
     "author": "AB Intelligence Systèmes",
     "maintainer": "Anthony Boursier",
     "website": "https://rmdstore.fr/ai-rgpd",
